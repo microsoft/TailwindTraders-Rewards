@@ -1,3 +1,8 @@
+# Deploy to Azure
+
+We have added an ARM template so you can automate the creation of the resources required for this app.
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2FTailwindTraders-Rewards%2Fmaster%2FDeploy%2Fdeployment.json"><img src="/Documents/Images/deploy-to-azure.png" alt="Deploy to Azure"/></a>
 
 # Contributing
 
