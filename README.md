@@ -1,3 +1,7 @@
+# Tailwind Traders Rewards Reference App
+
+<img src="/Documents/Images/Rewards.png" alt="Tailwind Traders Rewards"/>
+
 # Deploy to Azure
 
 We have added an ARM template so you can automate the creation of the resources required for this app.
