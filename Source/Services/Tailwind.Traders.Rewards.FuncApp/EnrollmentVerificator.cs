@@ -3,6 +3,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Table;
+using SendGrid.Helpers.Mail;
 using System;
 using System.Data.SqlClient;
 using System.Linq;
@@ -22,11 +23,19 @@ namespace Tailwind.Traders.Rewards.FuncApp
             [OrchestrationTrigger] DurableOrchestrationContext ctx)
         {
             var data = ctx.GetInput<EnrollmentHttpRequest>();
-            var notificationRequest = new RequestNotification(ctx.InstanceId, data.MobileNumber);
+            var notificationRequest = new RequestNotification(ctx.InstanceId, data.MobileNumber, data.Email, data.FirstName, data.LastName);
             var customerInfoRequest = new CustomerInfoRequest(data.MobileNumber, ctx.InstanceId, data.Id);
 
-            await ctx.CallActivityAsync(Activities.StoreCustomerInformation, customerInfoRequest);            
-            await ctx.CallActivityAsync(Activities.EnrollmentRequestNotification, notificationRequest);
+            await ctx.CallActivityAsync(Activities.StoreCustomerInformation, customerInfoRequest);
+
+            if (data.Channel  == ChannelType.Email)
+            {
+                await ctx.CallActivityAsync(Activities.Email.EnrollmentRequestNotification, notificationRequest);
+            }
+            else
+            {
+                await ctx.CallActivityAsync(Activities.Sms.EnrollmentRequestNotification, notificationRequest);
+            }
 
             using (var timeoutCts = new CancellationTokenSource())
             {
@@ -37,23 +46,37 @@ namespace Tailwind.Traders.Rewards.FuncApp
 
                 if (approvalEvent == await Task.WhenAny(approvalEvent, reminderTimeout))
                 {                   
-                    var dataStatus = new UpdateStatus(data.Id, data.MobileNumber, approvalEvent.Result);
+                    var dataStatus = new UpdateStatus(data.Id, data.MobileNumber, approvalEvent.Result, data.Email);
                     
                     await ctx.CallActivityAsync(Activities.UpdateEnrollmentStatus, dataStatus);
-                    await ctx.CallActivityAsync(Activities.SendEnrollmentFinishedNotification, dataStatus);
+                    if (data.Channel == ChannelType.Email)
+                    {
+                        await ctx.CallActivityAsync(Activities.Email.SendEnrollmentFinishedNotification, dataStatus);
+                    }
+                    else
+                    {
+                        await ctx.CallActivityAsync(Activities.Sms.SendEnrollmentFinishedNotification, dataStatus);
+                    }
 
                     timeoutCts.Cancel();
                 }
                 else
                 {
-                    await ctx.CallActivityAsync(Activities.SendReminderEnrollmentNotification, data.MobileNumber);
+                    if (data.Channel == ChannelType.Email)
+                    {
+                        await ctx.CallActivityAsync(Activities.Sms.SendReminderEnrollmentNotification, data.MobileNumber);
+                    }
+                    else
+                    {
+                        await ctx.CallActivityAsync(Activities.Email.SendReminderEnrollmentNotification, data.Email);
+                    }
                 }
 
                 await ctx.CallActivityAsync(Activities.CleanCustomerInfoTable, data.MobileNumber);
             }
         }
 
-        [FunctionName(Activities.EnrollmentRequestNotification)]
+        [FunctionName(Activities.Sms.EnrollmentRequestNotification)]
         public static void RunSendNotification([ActivityTrigger] RequestNotification notificationRequest,
             ILogger log,
             [TwilioSms(AccountSidSetting = "TwilioAccountSid", AuthTokenSetting = "TwilioAuthToken", From = "%TwilioPhoneNumber%")] out CreateMessageOptions message)
@@ -78,7 +101,27 @@ namespace Tailwind.Traders.Rewards.FuncApp
             }            
         }
 
-        [FunctionName(Activities.SendEnrollmentFinishedNotification)]
+        [FunctionName(Activities.Email.EnrollmentRequestNotification)]
+        public static void RunSendNotificationEmail([ActivityTrigger] RequestNotification notificationRequest,
+                    ILogger log,
+                    [SendGrid(ApiKey = "SendGridApiKey")] out SendGridMessage message)
+        {
+            log.LogInformation($"Sending notification to mobile number {notificationRequest.Email}.");
+            var enrollmentAFUrl = Environment.GetEnvironmentVariable("EnrollmentAFUrl");
+            var subsKey = Environment.GetEnvironmentVariable("APIM_SubsKey");
+            var from = Environment.GetEnvironmentVariable("SendGrid_From");
+            message = new SendGridMessage();
+            message.SetFrom(new EmailAddress(from));
+            message.AddTo(notificationRequest.Email, notificationRequest.FullName);
+            message.SetSubject("[no-reply] Welcome to Tailwind Traders Rewards Program");
+
+            message.AddContent("text/plain", $"Welcome to the Tailwind Traders Rewards Program! " +
+                $"Please click one of the following links to ACCEPT or CANCEL your enrollment. " +
+                $"Click ACCEPT {enrollmentAFUrl}?action=accepted&id={notificationRequest.InstanceId}&Subscription-Key={subsKey}  Or  " +
+                $"Click CANCEL {enrollmentAFUrl}?action=rejected&id={notificationRequest.InstanceId}&Subscription-Key={subsKey}");
+        }
+
+        [FunctionName(Activities.Sms.SendEnrollmentFinishedNotification)]
         public static void RunSendFinishedNotification([ActivityTrigger] UpdateStatus dataStatus,
             ILogger log,
             [TwilioSms(AccountSidSetting = "TwilioAccountSid", AuthTokenSetting = "TwilioAuthToken", From = "%TwilioPhoneNumber%")] out CreateMessageOptions message)
@@ -91,7 +134,25 @@ namespace Tailwind.Traders.Rewards.FuncApp
                 "Thank you for your response! Your Tailwind Traders Rewards program enrollment has been cancelled";
         }
 
-        [FunctionName(Activities.SendReminderEnrollmentNotification)]
+        [FunctionName(Activities.Email.SendEnrollmentFinishedNotification)]
+        public static void RunSendFinishedNotificationEmail([ActivityTrigger] UpdateStatus dataStatus,
+            ILogger log,
+            [SendGrid(ApiKey = "SendGridApiKey")] out SendGridMessage message)
+        {
+            log.LogInformation($"Sending enrollment finished notification to email {dataStatus.Email}.");
+
+            var from = Environment.GetEnvironmentVariable("SendGrid_From");
+            message = new SendGridMessage();
+            message.SetFrom(new EmailAddress(from));
+            message.AddTo(dataStatus.Email);
+            message.SetSubject("[no-reply] Tailwind Traders Rewards Program");
+            var body = dataStatus.Status == EnrollmentStatusEnum.Accepted ?
+                "Thank you for your response! You have successfully been enrolled to the Tailwind Traders Rewards program" :
+                "Thank you for your response! Your Tailwind Traders Rewards program enrollment has been cancelled";
+            message.AddContent("text/plain", body);
+        }
+
+        [FunctionName(Activities.Sms.SendReminderEnrollmentNotification)]
         public static void RunSendReminderEnrollmentNotification([ActivityTrigger] string number,
             ILogger log,
             [TwilioSms(AccountSidSetting = "TwilioAccountSid", AuthTokenSetting = "TwilioAuthToken", From = "%TwilioPhoneNumber%")] out CreateMessageOptions message)
@@ -100,6 +161,20 @@ namespace Tailwind.Traders.Rewards.FuncApp
 
             message = new CreateMessageOptions(new PhoneNumber(number));
             message.Body = "Reminder to accept the terms for the rewards";
+        }
+
+        [FunctionName(Activities.Email.SendReminderEnrollmentNotification)]
+        public static void RunSendReminderEnrollmentNotificationEmail([ActivityTrigger] string email,
+            ILogger log,
+           [SendGrid(ApiKey = "SendGridApiKey")] out SendGridMessage message)
+        {
+            log.LogInformation($"Sending reminder notification to email {email}.");
+            var from = Environment.GetEnvironmentVariable("SendGrid_From");
+            message = new SendGridMessage();
+            message.SetFrom(new EmailAddress(from));
+            message.AddTo(email);
+            message.SetSubject("[no-reply] Tailwind Traders Rewards Program");
+            message.AddContent("text/plain", "Reminder to accept the terms for the rewards");
         }
 
         [FunctionName(Activities.EnrollmentResponseNotification)]

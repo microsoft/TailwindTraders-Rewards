@@ -6,15 +6,18 @@ namespace Tailwind.Traders.Rewards.FuncApp.Models
 {
     public class UpdateStatus
     {
-        public UpdateStatus(string customerID, string mobileNumber, EnrollmentStatusEnum status)
+        public UpdateStatus(string customerID, string mobileNumber, EnrollmentStatusEnum status, string email)
         {
             CustomerId = customerID;
             Status = status;
             MobileNumber = mobileNumber;
+            Email = email;
         }
 
-        public string CustomerId { get; set; }
-        public string MobileNumber { get; set; }
-        public EnrollmentStatusEnum Status { get; set; }
+        public string Email { get; }
+
+        public string CustomerId { get; }
+        public string MobileNumber { get; }
+        public EnrollmentStatusEnum Status { get; }
     }
 }

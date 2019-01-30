@@ -77,6 +77,8 @@ namespace Tailwind.Traders.Rewards.Web
                 return;
             }
 
+            var channel = ConfigurationManager.AppSettings["ChannelType"] ?? "Email";
+
             var uri = ConfigurationManager.AppSettings["AfHttpHandlerUri"];
 
             var client = new HttpClient();
@@ -86,7 +88,9 @@ namespace Tailwind.Traders.Rewards.Web
                 firstName = customer.FirstName,
                 id = customer.CustomerId,
                 lastName = customer.LastName,
-                mobileNumber = customer.MobileNumber
+                mobileNumber = customer.MobileNumber,
+                Email = customer.Email,
+                Channel = channel
             };
             var json = JsonConvert.SerializeObject(obj);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -99,7 +103,7 @@ namespace Tailwind.Traders.Rewards.Web
             {
                 var customer = ctx.Customers
                     .Where(c => c.Email.Contains(SearchTextBox.Text) || c.FirstName.Contains(SearchTextBox.Text))
-                    .SingleOrDefault();
+                    .FirstOrDefault();
 
                 if (customer != null)
                 {

@@ -4,6 +4,13 @@ using System.Text;
 
 namespace Tailwind.Traders.Rewards.FuncApp
 {
+
+    public enum ChannelType
+    {
+        Sms = 1,
+        Email = 2
+    }
+
     public static class QueryString
     {
         public const string Id = "id";
@@ -23,11 +30,21 @@ namespace Tailwind.Traders.Rewards.FuncApp
 
     public static class Activities
     {
+        public static class Sms
+        {
+            public const string EnrollmentRequestNotification = "EnrollmentRequestNotificationBySms";
+            public const string SendEnrollmentFinishedNotification = "SendEnrollmentFinishedNotificationBySms";
+            public const string SendReminderEnrollmentNotification = "SendReminderEnrollmentNotificationBySms";
+        }
+
+        public static class Email
+        {
+            public const string EnrollmentRequestNotification = "EnrollmentRequestNotificationByMail";
+            public const string SendEnrollmentFinishedNotification = "SendEnrollmentFinishedNotificationByMail";
+            public const string SendReminderEnrollmentNotification = "SendReminderEnrollmentNotificationByMail";
+        }
         public const string StoreCustomerInformation = "StoreCustomerInformation";
-        public const string EnrollmentRequestNotification = "EnrollmentRequestNotification"; 
         public const string UpdateEnrollmentStatus = "UpdateEnrollmentStatus";
-        public const string SendEnrollmentFinishedNotification = "SendEnrollmentFinishedNotification";
-        public const string SendReminderEnrollmentNotification = "SendReminderEnrollmentNotification";
         public const string EnrollmentResponseNotification = "EnrollmentResponseNotification";
         public const string CleanCustomerInfoTable = "CleanCustomerInfoTable";
     }

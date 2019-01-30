@@ -8,11 +8,20 @@ namespace Tailwind.Traders.Rewards.FuncApp.Models
     public class EnrollmentHttpRequest
     {
         private string _mobileNumber;
-
         public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public EnrollmentStatusEnum Enrolled { get; set; }
+
+        public ChannelType Channel { get; set; }
+
+        public string Email { get; set; }
+
+        public EnrollmentHttpRequest()
+        {
+            Channel = ChannelType.Email;
+        }
+
         public string MobileNumber
         {
             get => _mobileNumber;           

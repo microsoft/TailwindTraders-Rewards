@@ -39,7 +39,6 @@ namespace Tailwind.Traders.Rewards.FuncApp
             if (customerInfofromTable != null)
             {
                 log.LogInformation($"Phone number: {data.MobileNumber} is already in the enrolling process. Cancelling.");
-
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
 
