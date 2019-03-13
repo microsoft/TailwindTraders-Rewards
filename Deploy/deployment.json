@@ -15,7 +15,6 @@
     "plan_name": "[concat('ttrewardsplan',uniqueString(resourceGroup().id))]",
     "function_name": "[concat('ttrewardsfunction',uniqueString(resourceGroup().id))]",
     "storage_name": "[concat('ttstorage',uniqueString(resourceGroup().id))]",
-    "appinsights_name": "[concat('ttappinsights',uniqueString(resourceGroup().id))]",
     "logicapp_name": "[concat('ttlogicapp',uniqueString(resourceGroup().id))]",
     "definition": "[concat('{\"contentVersion\":\"1.0.0.0\",\"parameters\":{},\"actions\":{},\"triggers\":{},\"outputs\":{},\"$schema\":\"', variables('workflowSchema'), '\"}')]",
     "workflowSchema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
@@ -92,18 +91,6 @@
       "location": "[resourceGroup().location]",
       "properties": {
         "accountType": "Standard_LRS"
-      }
-    },
-    {
-      "type": "microsoft.insights/components",
-      "name": "[variables('appinsights_name')]",
-      "apiVersion": "2014-08-01",
-      "location": "[resourceGroup().location]",
-      "properties": {
-        "ApplicationId": "[variables('web_name')]",
-        "Application_Type": "web",
-        "Flow_Type": "Redfield",
-        "Request_Source": "IbizaAIExtension"
       }
     },
     {
