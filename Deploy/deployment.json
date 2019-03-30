@@ -64,6 +64,7 @@
           "connectionStrings": [
             {
               "name": "dbContext",
+              "type":"SQLAzure",
               "connectionString": "[concat('Server=tcp:',variables('sqlserver_name'),'.database.windows.net,1433;Initial Catalog=rewardsdb;Persist Security Info=False;User ID=',parameters('sqlServerAdministratorUser'),';Password=',parameters('sqlServerAdministratorPassword'),';MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;')]"
             }
           ]
