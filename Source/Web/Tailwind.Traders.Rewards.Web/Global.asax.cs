@@ -19,9 +19,6 @@ namespace Tailwind.Traders.Rewards.Web
             // Code that runs on application startup
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            var migrator = new System.Data.Entity.Migrations.DbMigrator(new Configuration());
-            migrator.Update();
         }
     }
 }

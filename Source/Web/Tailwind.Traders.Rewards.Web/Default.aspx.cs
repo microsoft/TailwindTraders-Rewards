@@ -7,6 +7,7 @@ using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Tailwind.Traders.Rewards.Web.data;
+using Tailwind.Traders.Rewards.Web.Migrations;
 
 namespace Tailwind.Traders.Rewards.Web
 {
@@ -14,6 +15,10 @@ namespace Tailwind.Traders.Rewards.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            var migrator = new System.Data.Entity.Migrations.DbMigrator(new Migrations.Configuration());
+            migrator.Update();
+
             string yolo = Request.QueryString["yolo"];
             if (yolo == "hi")
 

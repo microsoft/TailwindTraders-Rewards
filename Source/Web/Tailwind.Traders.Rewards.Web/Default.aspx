@@ -76,8 +76,6 @@
                 </p>
             </div>            
 
-          
-            <div class="btn">Delete Client</div>
             <br />
             <br />
         </asp:PlaceHolder>

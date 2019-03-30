@@ -21,6 +21,18 @@
     "sqlserver_name": "[concat('ttsqlserver',uniqueString(resourceGroup().id))]"
   },
   "resources": [
+      {
+        "type": "microsoft.insights/components",
+        "name": "[variables('web_name')]",
+        "apiVersion": "2014-08-01",
+        "location": "westus2",
+        "properties": {
+            "ApplicationId": "[variables('web_name')]",
+            "Application_Type": "web",
+            "Flow_Type": "Brownfield",
+            "Request_Source": "IbizaWebAppExtensionCreate"
+        }
+    },
     {
       "type": "Microsoft.Web/serverfarms",
       "sku": {
@@ -38,10 +50,29 @@
       "apiVersion": "2016-08-01",
       "location": "[resourceGroup().location]",
       "properties": {
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('microsoft.insights/components/', variables('web_name')), '2015-05-01').InstrumentationKey]"
+            },
+            {
+              "name": "ByPassLogicApp",
+              "value": "false"
+            }
+          ],
+          "connectionStrings": [
+            {
+              "name": "dbContext",
+              "connectionString": "Server=tcp:variables('sqlserver_name').database.windows.net,1433;Initial Catalog=rewardsdb;Persist Security Info=False;User ID=parameters('sqlServerAdministratorUser');Password=parameters('sqlServerAdministratorPassword');MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+            }
+          ]
+        },
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('plan_name'))]"
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', variables('plan_name'))]"
+        "[resourceId('Microsoft.Web/serverfarms', variables('plan_name'))]",
+        "[resourceId('microsoft.insights/components/', variables('web_name'))]"
       ]
     },
     {
@@ -68,6 +99,7 @@
           "name": "appsettings",
           "apiVersion": "2015-08-01",
           "properties": {
+            "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(resourceId('microsoft.insights/components/', variables('web_name')), '2015-05-01').InstrumentationKey]",
             "FUNCTIONS_EXTENSION_VERSION": "~1",
             "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storage_name'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storage_name')), '2015-06-15').key1)]",
             "WEBSITE_CONTENTSHARE": "[toLower(variables('function_name'))]",
@@ -75,7 +107,8 @@
             "AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storage_name'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storage_name')), '2015-06-15').key1)]"
           },
           "dependsOn": [
-            "[concat('Microsoft.Web/Sites/', variables('function_name'))]"
+            "[concat('Microsoft.Web/Sites/', variables('function_name'))]",
+            "[resourceId('microsoft.insights/components/', variables('web_name'))]"
           ]
         }
       ],
@@ -122,7 +155,7 @@
             "name": "S0",
             "tier": "Standard"
           },
-          "name": "TailwindTradersRewardsDB",
+          "name": "rewardsdb",
           "apiVersion": "2017-10-01-preview",
           "location": "[resourceGroup().location]",
           "properties": {
@@ -162,7 +195,7 @@
           },
           "dependsOn": [
             "[concat('Microsoft.Sql/servers/', variables('sqlserver_name'))]",
-            "[concat('Microsoft.Sql/servers/', variables('sqlserver_name'), '/databases/', 'TailwindTradersRewardsDB')]"
+            "[concat('Microsoft.Sql/servers/', variables('sqlserver_name'), '/databases/', 'rewardsdb')]"
           ],
           "condition": false
         }
@@ -178,9 +211,9 @@
       "type": "string",
       "value": "[variables('function_name')]"
     },
-    "storage": {
+    "sqlserver": {
       "type": "string",
-      "value": "[variables('storage_name')]"
+      "value": "[variables('sqlserver_name')]"
     }
   }
 }
