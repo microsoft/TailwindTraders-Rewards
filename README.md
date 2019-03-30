@@ -1,12 +1,20 @@
 # Tailwind Traders Rewards Reference App
 
-<img src="/Documents/Images/Rewards.png" alt="Tailwind Traders Rewards"/>
+![Tailwind Traders Rewards](Documents/Images/Rewards.png)
+
+You can take a look at our live running website following this address: [https://rewards.tailwindtraders.com](https://rewards.tailwindtraders.com) 
+
+[![Build status](https://dev.azure.com/TailwindTraders/Rewards/_apis/build/status/Rewards-CI)](https://dev.azure.com/TailwindTraders/Rewards/_build/latest?definitionId=28)
 
 # Deploy to Azure
 
 We have added an ARM template so you can automate the creation of the resources required for this app.
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2FTailwindTraders-Rewards%2Fmaster%2FDeploy%2Fdeployment.json"><img src="/Documents/Images/deploy-to-azure.png" alt="Deploy to Azure"/></a>
+[![Deploy to Azure](Documents/Images/deploy-to-azure.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2FTailwindTraders-Rewards%2Fmaster%2FDeploy%2Fdeployment.json)
+
+# Demo Script
+
+You can find a [demo script](https://github.com/Microsoft/TailwindTraders/tree/master/Documents/DemoScripts/Modernizing%20.NET%20Apps#modernizing-net-apps) with the walkthroughs once you have deployed the Azure resources and cloned the source code of this repository.
 
 # Repositories
 
