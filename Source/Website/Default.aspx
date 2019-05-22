@@ -59,7 +59,7 @@
                     <span id="City" class="content__title" runat="server"></span>
                 </p>
                 <p class="content__row">
-                    <span class="content__text">State</span>
+                    <span class="content__text">Country</span>
                     <span id="Country" class="content__title" runat="server"></span>
                 </p>
                 <p class="content__row">
