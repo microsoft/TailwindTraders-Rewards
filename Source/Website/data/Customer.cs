@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-
-namespace Tailwind.Traders.Rewards.Web.data
+﻿namespace Tailwind.Traders.Rewards.Web.data
 {
     public class Customer
     {
-        [Timestamp]
+        //[Timestamp]
         public byte[] RowVersion { get; set; }
         public int CustomerId { get; set; }
         public string AccountCode { get; set; }
@@ -21,7 +15,7 @@ namespace Tailwind.Traders.Rewards.Web.data
         public string Website { get; set; }
         public bool Active { get; set; }
         public EnrollmentStatusEnum Enrrolled { get; set; }
-        [Key]
+        //[Key]
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string MobileNumber { get; set; }

@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Routing;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.AspNet.FriendlyUrls.Resolvers;
 
 namespace Tailwind.Traders.Rewards.Web
 {
@@ -20,7 +15,7 @@ namespace Tailwind.Traders.Rewards.Web
         protected void Page_Load(object sender, EventArgs e)
         {
             // Determine current view
-            var isMobile = WebFormsFriendlyUrlResolver.IsMobileView(new HttpContextWrapper(Context));
+            var isMobile = Context.Request.Browser.IsMobileDevice;
             CurrentView = isMobile ? "Mobile" : "Desktop";
 
             // Determine alternate view

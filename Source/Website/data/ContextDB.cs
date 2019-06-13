@@ -1,10 +1,8 @@
+using System.Data.Entity;
+
 namespace Tailwind.Traders.Rewards.Web.data
 {
-    using System;
-    using System.Data.Entity;
-    using System.Linq;
-
-    public class ContextDB : System.Data.Entity.DbContext
+    public class ContextDB : DbContext
     {
         // Your context has been configured to use a 'dbContext' connection string from your application's 
         // configuration file (App.config or Web.config). By default, this connection string targets the 
