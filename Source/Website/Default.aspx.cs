@@ -2,12 +2,11 @@
 using System;
 using System.Configuration;
 using System.Linq;
-using System.Net.Http;
+using System.Net;
 using System.Text;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using Tailwind.Traders.Rewards.Web.data;
-using Tailwind.Traders.Rewards.Web.Migrations;
+using Tailwind.Traders.Rewards.Web.Infrastructure;
+using Tailwind.Traders.Rewards.Web.Models;
 
 namespace Tailwind.Traders.Rewards.Web
 {
@@ -15,9 +14,9 @@ namespace Tailwind.Traders.Rewards.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            var migrator = new System.Data.Entity.Migrations.DbMigrator(new Migrations.Configuration());
-            migrator.Update();
+            // esto nos lo cepillamos, damos por hecho de que la base de datos existe y está inicializada
+            //var migrator = new System.Data.Entity.Migrations.DbMigrator(new Migrations.Configuration());
+            //migrator.Update();
 
             string yolo = Request.QueryString["yolo"];
             if (yolo == "hi")
@@ -86,7 +85,7 @@ namespace Tailwind.Traders.Rewards.Web
 
             var uri = ConfigurationManager.AppSettings["AfHttpHandlerUri"];
 
-            var client = new HttpClient();
+            var client = new WebClient();
             var obj = new
             {
                 enrolled = customer.Enrrolled,
@@ -97,9 +96,12 @@ namespace Tailwind.Traders.Rewards.Web
                 Email = customer.Email,
                 Channel = channel
             };
-            var json = JsonConvert.SerializeObject(obj);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var result = client.PostAsync(uri, content).Result;
+            var jsonString = JsonConvert.SerializeObject(obj);
+            var ut8Bytes = Encoding.UTF8.GetBytes(jsonString);
+            jsonString = Encoding.UTF8.GetString(ut8Bytes);
+
+            client.Headers.Add("content-type", "application/json");
+            client.UploadStringAsync(new Uri(uri), jsonString);
         }
 
         protected void SearchCustomer(object sender, EventArgs e)

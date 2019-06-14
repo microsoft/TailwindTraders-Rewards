@@ -88,7 +88,7 @@
         </div>
         <asp:PlaceHolder runat="server" ID="spanCustomer2" Visible="true">
             <h2 class="title">Order history</h2>
-            <asp:ListView ID="orderList" ItemPlaceholderID="itemPlaceHolder" runat="server" ItemType="Tailwind.Traders.Rewards.Web.data.Order">
+            <asp:ListView ID="orderList" ItemPlaceholderID="itemPlaceHolder" runat="server" ItemType="Tailwind.Traders.Rewards.Web.Models.Order">
                 <EmptyDataTemplate>
                     <table>
                         <tr>

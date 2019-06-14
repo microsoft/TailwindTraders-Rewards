@@ -1,6 +1,7 @@
 using System.Data.Entity;
+using Tailwind.Traders.Rewards.Web.Models;
 
-namespace Tailwind.Traders.Rewards.Web.data
+namespace Tailwind.Traders.Rewards.Web.Infrastructure
 {
     public class ContextDB : DbContext
     {
@@ -14,10 +15,6 @@ namespace Tailwind.Traders.Rewards.Web.data
             : base("name=dbContext")
         {
         }
-
-
-        // Add a DbSet for each entity type that you want to include in your model. For more information 
-        // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
