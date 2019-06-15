@@ -111,22 +111,34 @@
                 <ItemTemplate>
                     <div class="table__row">
                         <div class="table__item">
-                            <%#:Item.Code%>
+                            <asp:Label
+                                Text='<%# DataBinder.Eval(Container.DataItem, "Code") %>'
+                                runat="server"/>
                         </div>
                         <div class="table__item">
-                            <%#:Item.Date%>
+                            <asp:Label
+                                Text='<%# DataBinder.Eval(Container.DataItem, "Date") %>'
+                                runat="server"/>
                         </div>
                         <div class="table__item">
-                            <%#:Item.Type%>
+                            <asp:Label
+                                Text='<%# DataBinder.Eval(Container.DataItem, "Type") %>'
+                                runat="server"/>
                         </div>
                         <div class="table__item">
-                            <%#:Item.ItemName%>
+                            <asp:Label
+                                Text='<%# DataBinder.Eval(Container.DataItem, "ItemName") %>'
+                                runat="server"/>
                         </div>
                         <div class="table__item">
-                            <%#:Item.Status%>
+                            <asp:Label
+                                Text='<%# DataBinder.Eval(Container.DataItem, "Status") %>'
+                                runat="server"/>
                         </div>
                         <div class="table__item">
-                            <%#:Item.Total%>
+                            <asp:Label
+                                Text='<%# DataBinder.Eval(Container.DataItem, "Total") %>'
+                                runat="server"/>
                         </div>
                     </div>
                 </ItemTemplate>

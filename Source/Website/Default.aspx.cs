@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Configuration;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web.UI;
-using Tailwind.Traders.Rewards.Web.Infrastructure;
+using Tailwind.Traders.Rewards.Web.Data;
 using Tailwind.Traders.Rewards.Web.Models;
 
 namespace Tailwind.Traders.Rewards.Web
@@ -30,26 +29,22 @@ namespace Tailwind.Traders.Rewards.Web
             {
                 cid = int.Parse(CustomerId.Value);
             }
-            using (var ctx = new ContextDB())
+
+            var orders = OrdersData.GetOrders(5);
+            orderList.DataSource = orders;
+            orderList.DataBind();
+
+            if (cid == -1)
             {
-                var orders = ctx.Orders
-                    .Take(5)
-                    .ToList();
-
-                orderList.DataSource = orders;
-                orderList.DataBind();
-
-                if (cid == -1)
-                {
-                    var defaultCustomer = ctx.Customers.FirstOrDefault();
-                    MapCustomer(defaultCustomer);
-                }
-                else
-                {
-                    var customer = ctx.Customers.Single(c => c.CustomerId == cid);
-                    MapCustomer(customer);
-                }
+                var defaultCustomer = CustomerData.GetDefaultCustomer();
+                MapCustomer(defaultCustomer);
             }
+            else
+            {
+                var customer = CustomerData.GetCustomerById(cid);
+                MapCustomer(customer);
+            }
+            
 
             lblCheckbox.Attributes.Add("for", EnrollCheckbox.ClientID);
         }
@@ -57,23 +52,19 @@ namespace Tailwind.Traders.Rewards.Web
         protected void EnrollChckedChanged(object sender, EventArgs e)
         {
             var cid = int.Parse(CustomerId.Value);
-            using (var ctx = new ContextDB())
-            {
-                var customer = ctx.Customers
-                    .Where(c => c.CustomerId == cid)
-                    .SingleOrDefault();
 
-                if (customer.Enrrolled == EnrollmentStatusEnum.Uninitialized)
-                {
-                    customer.Enrrolled = EnrollmentStatusEnum.Started;
-                    ctx.SaveChanges();
-                    BypassLogicAppIfNeeded(customer);
-                    MapCustomer(customer);
-                }
+            var customer = CustomerData.GetCustomerById(cid);
+
+            if (customer.Enrrolled == EnrollmentStatusEnum.Uninitialized)
+            {
+                customer.Enrrolled = EnrollmentStatusEnum.Started;
+                CustomerData.ChangeEnrollmentStatus(customer);
+                BypassLogicAppIfNeeded(customer);
+                MapCustomer(customer);
             }
         }
 
-        private void BypassLogicAppIfNeeded(Customer customer)
+    private void BypassLogicAppIfNeeded(Customer customer)
         {
             var bypassSettings = ConfigurationManager.AppSettings["ByPassLogicApp"];
             if (string.IsNullOrEmpty(bypassSettings) || !bool.Parse(bypassSettings))
@@ -106,29 +97,23 @@ namespace Tailwind.Traders.Rewards.Web
 
         protected void SearchCustomer(object sender, EventArgs e)
         {
-            using (var ctx = new ContextDB())
+            var customer = CustomerData.GetCustomerByEmailOrName(SearchTextBox.Text);
+
+            if (customer != null)
             {
-                var customer = ctx.Customers
-                    .Where(c => c.Email.Contains(SearchTextBox.Text) || c.FirstName.Contains(SearchTextBox.Text))
-                    .FirstOrDefault();
-
-                if (customer != null)
-                {
-                    MapCustomer(customer);
-                    spanCustomer.Visible = true;
-                    spanCustomer2.Visible = true;
-                    spanNotFound.Visible = false;
-                }
-                else
-                {
-                    spanCustomer.Visible = false;
-                    spanCustomer2.Visible = false;
-                    spanNotFound.Visible = true;
-                }
-
-                RandomizeOrderHistory(ctx);
+                MapCustomer(customer);
+                spanCustomer.Visible = true;
+                spanCustomer2.Visible = true;
+                spanNotFound.Visible = false;
+            }
+            else
+            {
+                spanCustomer.Visible = false;
+                spanCustomer2.Visible = false;
+                spanNotFound.Visible = true;
             }
 
+            RandomizeOrderHistory();
             SearchTextBox.Text = string.Empty;            
         }
 
@@ -175,12 +160,9 @@ namespace Tailwind.Traders.Rewards.Web
 
         }
 
-        private void RandomizeOrderHistory(ContextDB ctx)
+        private void RandomizeOrderHistory()
         {
-            var shuffledOrders = ctx.Orders
-                    .OrderBy(a => Guid.NewGuid())
-                    .Take(5)
-                    .ToList();
+            var shuffledOrders = OrdersData.GetOrdersRandomized();
 
             orderList.DataSource = shuffledOrders;
             orderList.DataBind();
