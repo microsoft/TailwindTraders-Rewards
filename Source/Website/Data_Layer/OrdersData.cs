@@ -10,7 +10,7 @@ namespace Tailwind.Traders.Rewards.Web.Data
     {
         public static IEnumerable<Order> GetOrders(int numberOfOrders = 5)
         {
-            var query = "SELECT TOP 5 * FROM ORDERS";
+            var query = string.Format("SELECT TOP {0} * FROM ORDERS", numberOfOrders);
             
             try
             {

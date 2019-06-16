@@ -13,13 +13,8 @@ namespace Tailwind.Traders.Rewards.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // esto nos lo cepillamos, damos por hecho de que la base de datos existe y está inicializada
-            //var migrator = new System.Data.Entity.Migrations.DbMigrator(new Migrations.Configuration());
-            //migrator.Update();
-
             string yolo = Request.QueryString["yolo"];
             if (yolo == "hi")
-
             {
                 throw new Exception();
             }
