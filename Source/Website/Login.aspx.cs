@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Web.Security;
-using System.Web.UI.WebControls;
 
 namespace Tailwind.Traders.Rewards.Web
 {
@@ -9,21 +8,22 @@ namespace Tailwind.Traders.Rewards.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
-                ViewState["LoginErrors"] = 0;
+            if (Page.User.Identity.IsAuthenticated)
+            {
+                FormsAuthentication.RedirectFromLoginPage(Page.User.Identity.Name, true);
+            }
         }
 
-        protected void OnAuthenticate(object sender, AuthenticateEventArgs e)
+        protected void ValidateUser(object sender, EventArgs e)
         {
-            if (IsValidUser(LoginComponent.UserName, LoginComponent.Password))
+            if (IsValidUser(txtUsername.Text.Trim(), txtPassword.Text.Trim()))
             {
-                e.Authenticated = true;
-                FormsAuthentication.RedirectFromLoginPage(LoginComponent.UserName, LoginComponent.RememberMeSet);
+                FormsAuthentication.RedirectFromLoginPage(txtUsername.Text.Trim(), chkRememberMe.Checked);
             }
             else
             {
-                e.Authenticated = false;
-                LoginComponent.FailureText = "Username or password incorrect";
+                dvMessage.Visible = true;
+                lblMessage.Text = "Username or password incorrect";
             }
         }
 
