@@ -95,6 +95,7 @@
     <None Include="Properties\PublishProfiles\tt-rewardsdev - Web Deploy.pubxml" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Login.aspx" />
     <Content Include="Site.Master" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -104,6 +105,13 @@
     <Compile Include="Data_Layer\CustomerData.cs" />
     <Compile Include="Data_Layer\DataAccessHandler.cs" />
     <Compile Include="Data_Layer\OrdersData.cs" />
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\EnrollmentStatusEnum.cs" />
     <Compile Include="Models\Order.cs" />
