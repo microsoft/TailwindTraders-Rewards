@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Web.Security;
 using System.Web.UI.WebControls;
 
 namespace Tailwind.Traders.Rewards.Web
@@ -16,9 +17,8 @@ namespace Tailwind.Traders.Rewards.Web
         {
             if (IsValidUser(LoginComponent.UserName, LoginComponent.Password))
             {
-                LoginComponent.InstructionText = "Succesfully logged";
                 e.Authenticated = true;
-                Response.Redirect("~/Prueba.aspx");
+                FormsAuthentication.RedirectFromLoginPage(LoginComponent.UserName, LoginComponent.RememberMeSet);
             }
             else
             {

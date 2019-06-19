@@ -24,8 +24,11 @@
 <body>
     <form runat="server" class="grid">
         <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>   
-
+            </asp:ContentPlaceHolder>
+        <asp:ContentPlaceHolder ID="Login" runat="server">
+            </asp:ContentPlaceHolder>
+        <asp:ContentPlaceHolder ID="Admin" runat="server">
+            </asp:ContentPlaceHolder>
     </form>
 </body>
 </html>
