@@ -11,7 +11,7 @@ namespace Tailwind.Traders.Rewards.Web
         {
             if(Page.User.Identity.IsAuthenticated)
             {
-                Label1.Text = "Logado " + Page.User.Identity.Name;
+                Label1.Text = "Logged " + Page.User.Identity.Name;
             }
             else
             {
@@ -25,25 +25,71 @@ namespace Tailwind.Traders.Rewards.Web
             Response.Redirect("Default.aspx", true);
         }
 
+        private bool IsValidCustomer()
+        {
+            if(!IsValidEmail(Customer_Email.Text.Trim()))
+            {
+                return false;
+            }
+
+            if(ExistsCustomer(Customer_Email.Text.Trim()))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            if(email == string.Empty)
+            {
+                return false;
+            }
+
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool ExistsCustomer(string email)
+        {
+            var user = CustomerData.GetCustomerByEmailOrName(email);
+
+            return (user != null);
+        }
+
         protected void OnClickAddCustomer(object sender, EventArgs e)
         {
+            if(!IsValidCustomer())
+            {
+                // TODO mirar si mostramos mensaje de error
+                return;
+            }
+
             var customer = new Customer
             {
-                Email = "newcustomer@customers.com",
+                Email = Customer_Email.Text.Trim(),
                 RowVersion = new byte[] { },
-                AccountCode = "UnaAccountCode",
-                FirstName = "John",
-                LastName = "Doe",
-                FirstAddress = "First address value",
-                City = "Una city",
-                Country = "Un country",
-                ZipCode = "12344",
-                Website = "Un website",
+                AccountCode = Customer_AccountCode.Text.Trim(),
+                FirstName = Customer_FirstName.Text.Trim(),
+                LastName = Customer_LastName.Text.Trim(),
+                FirstAddress = Customer_FirstAddress.Text.Trim(),
+                City = Customer_City.Text.Trim(),
+                Country = Customer_Country.Text.Trim(),
+                ZipCode = Customer_ZipCode.Text.Trim(),
+                Website = Customer_Website.Text.Trim(),
                 Active = true,
                 Enrrolled = EnrollmentStatusEnum.Uninitialized,
-                PhoneNumber = "3546778",
-                MobileNumber = "379839304",
-                FaxNumber = "98375903"
+                PhoneNumber = Customer_PhoneNumber.Text.Trim(),
+                MobileNumber = Customer_MobileNumber.Text.Trim(),
+                FaxNumber = Customer_FaxNumber.Text.Trim()
             };
 
             CustomerData.AddCustomer(customer);

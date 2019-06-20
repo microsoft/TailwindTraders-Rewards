@@ -31,60 +31,133 @@ namespace Tailwind.Traders.Rewards.Web {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// ActiveCheckbox control.
-        /// btnAddCustomer control.
+        /// Customer_Email control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ActiveCheckbox;
+        protected global::System.Web.UI.WebControls.TextBox Customer_Email;
         
         /// <summary>
-        /// lblCheckbox control.
-        protected global::System.Web.UI.WebControls.Button btnAddCustomer;
-        
-        /// <summary>
-        /// btnUpdateCustomer control.
+        /// Customer_AccountCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblCheckbox;
-
-        /// <summary>
-        /// EnrollCheckbox control.
-        protected global::System.Web.UI.WebControls.Button btnUpdateCustomer;
+        protected global::System.Web.UI.WebControls.TextBox Customer_AccountCode;
         
         /// <summary>
-        /// btnDeleteCustomer control.
+        /// Customer_FirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox EnrollCheckbox;
+        protected global::System.Web.UI.WebControls.TextBox Customer_FirstName;
         
         /// <summary>
-        /// Label2 control.
-        protected global::System.Web.UI.WebControls.Button btnDeleteCustomer;
-        
-        /// <summary>
-        /// btnAddOrder control.
+        /// Customer_LastName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label2;
+        protected global::System.Web.UI.WebControls.TextBox Customer_LastName;
+        
+        /// <summary>
+        /// Customer_FirstAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Customer_FirstAddress;
+        
+        /// <summary>
+        /// Customer_City control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Customer_City;
+        
+        /// <summary>
+        /// Customer_Country control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Customer_Country;
+        
+        /// <summary>
+        /// Customer_ZipCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Customer_ZipCode;
+        
+        /// <summary>
+        /// Customer_Website control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Customer_Website;
+        
+        /// <summary>
+        /// Customer_PhoneNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Customer_PhoneNumber;
+        
+        /// <summary>
+        /// Customer_MobileNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Customer_MobileNumber;
+        
+        /// <summary>
+        /// Customer_FaxNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Customer_FaxNumber;
+        
+        /// <summary>
+        /// Customer_Active control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox Customer_Active;
+        
+        /// <summary>
+        /// btnSaveCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveCustomer;
         
         /// <summary>
         /// CheckBoxStatus control.
-        protected global::System.Web.UI.WebControls.Button btnAddOrder;
-        
-        /// <summary>
-        /// btnUpdateOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -94,17 +167,11 @@ namespace Tailwind.Traders.Rewards.Web {
         
         /// <summary>
         /// Label3 control.
-        protected global::System.Web.UI.WebControls.Button btnUpdateOrder;
-        
-        /// <summary>
-        /// btnDeleteOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label3;
-      
-        protected global::System.Web.UI.WebControls.Button btnDeleteOrder;
     }
 }
