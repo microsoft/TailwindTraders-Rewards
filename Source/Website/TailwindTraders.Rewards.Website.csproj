@@ -81,10 +81,14 @@
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.js" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.min.js" />
     <Content Include="Content\img\logo.svg" />
     <Content Include="Content\img\search.svg" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\styles\admin.css" />
+    <Content Include="Content\styles\login.css" />
     <Content Include="Content\styles\main.css" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
@@ -138,6 +142,13 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="Admin.Master.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin.Master.designer.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -145,6 +156,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Prueba.cshtml" />
+    <Content Include="Admin.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

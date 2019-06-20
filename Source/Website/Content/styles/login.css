@@ -1,0 +1,30 @@
+﻿.login-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form {
+    box-shadow: var(--box-shadow, 2px 2px 20px 3px rgba(0, 0, 0, 0.1));
+    display: flex;
+    flex-direction: column;
+    padding:15px;
+}
+
+input.login-input {
+    height: 30px;
+    width: 97%;
+    display: block;
+}
+
+.login-checkbox {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.login-checkbox label {
+    margin-left: 10px;
+}

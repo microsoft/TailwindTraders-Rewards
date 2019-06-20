@@ -1,0 +1,39 @@
+﻿.admin-form {
+    padding: 0 15px 0 15px;
+}
+
+input.admin-form-input {
+    width: 100%;
+    height: 30px;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0 15px 0;
+}
+
+.admin-message {
+    padding: 15px;
+    box-shadow: var(--box-shadow, 2px 2px 20px 3px rgba(0, 0, 0, 0.1));
+    margin: 30px 0 30px 0;
+}
+
+    .admin-message .content__title {
+        margin-bottom: 0;
+    }
+
+.admin-tabs {
+    margin-bottom: 5px;
+}
+
+.checkbox-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.checkbox-wrapper label {
+    display: inline-block;
+    margin-left: 10px;
+}

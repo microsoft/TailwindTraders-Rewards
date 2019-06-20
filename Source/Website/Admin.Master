@@ -1,18 +1,18 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Tailwind.Traders.Rewards.Web.SiteMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="Tailwind.Traders.Rewards.Web.SiteMaster" %>
 
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tailwind Trader Form</title>
-    
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />    
-    
-    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css"  runat="server"/>
-    <link href="~/Content/styles/main.css" rel="stylesheet" type="text/css"  runat="server"/>
-            
+    <title>Tailwind Trader Admin Form</title>
+
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" runat="server" />
+    <link href="~/Content/styles/admin.css" rel="stylesheet" type="text/css" runat="server" />
+
     <link rel="apple-touch-icon" sizes="180x180" href="/Content/img/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/Content/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/Content/img/favicon/favicon-16x16.png">
@@ -21,10 +21,18 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 </head>
+
 <body>
-    <form runat="server" class="grid">
-        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+    <form id="form1" runat="server">
+        <div>
+            <asp:ContentPlaceHolder ID="Login" runat="server">
             </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="Admin" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
     </form>
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="/Content/bootstrap.min.js"></script>
 </body>
 </html>
