@@ -54,6 +54,92 @@ namespace Tailwind.Traders.Rewards.Web.Data
             }
         }
 
+        public static void AddOrder(Order order)
+        {
+            var query = @"INSERT INTO ORDERS
+                                ([Code]
+                                ,[Date]
+                                ,[Type]
+                                ,[ItemName]
+                                ,[Status]
+                                ,[Total])
+                            VALUES
+                                (@Code
+                                ,@Date
+                                ,@Type
+                                ,@ItemName
+                                ,@Status
+                                ,@Total)";
+                            
+
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Code", order.Code),
+                new SqlParameter("@Date", order.Date),
+                new SqlParameter("@Type", order.Type),
+                new SqlParameter("@ItemName", order.ItemName),
+                new SqlParameter("@Status", order.Status),
+                new SqlParameter("@Total", order.Total)
+            };
+
+            try
+            {
+                DataAccessHandler.ExecuteNonSelect(query, parameters);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void UpdateOrder(Order order)
+        {
+            var query = @"UPDATE ORDERS
+                                SET Code = @Code
+                                ,Date = @Date
+                                ,Type = @Type
+                                ,ItemName = @ItemName
+                                ,Status = @Status
+                                ,Total = @Total
+                            WHERE OrderId = @OrderId";
+            
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Code", order.Code),
+                new SqlParameter("@Date", order.Date),
+                new SqlParameter("@Type", order.Type),
+                new SqlParameter("@ItemName", order.ItemName),
+                new SqlParameter("@Status", order.Status),
+                new SqlParameter("@Total", order.Total),
+                new SqlParameter("@OrderId", order.OrderId)
+            };
+
+            try
+            {
+                DataAccessHandler.ExecuteNonSelect(query, parameters);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void DeleteOrder(int orderId)
+        {
+            var query = "DELETE FROM ORDERS WHERE OrderId = @OrderId";
+
+            var param = new SqlParameter("@OrderId", orderId);
+
+            try
+            {
+                DataAccessHandler.ExecuteNonSelect(query, new SqlParameter[] { param });
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         private static IEnumerable<Order> GetMappedOrders(DataTable ordersResult)
         {
             var mappedOrders = new List<Order>();
