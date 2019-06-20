@@ -5,9 +5,9 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Customers](
-	[Email] [nvarchar](128) NOT NULL,
-	[RowVersion] [timestamp] NOT NULL,
-	[CustomerId] [int] NOT NULL,
+	[CustomerId] [int] IDENTITY(1,1) NOT NULL,
+	[Email] [nvarchar](128) NOT NULL UNIQUE,
+	[RowVersion] [timestamp] NOT NULL,	
 	[AccountCode] [nvarchar](max) NULL,
 	[FirstName] [nvarchar](max) NULL,
 	[LastName] [nvarchar](max) NULL,
@@ -21,9 +21,9 @@ CREATE TABLE [dbo].[Customers](
 	[PhoneNumber] [nvarchar](max) NULL,
 	[MobileNumber] [nvarchar](max) NULL,
 	[FaxNumber] [nvarchar](max) NULL,
- CONSTRAINT [PK_dbo.Customers] PRIMARY KEY CLUSTERED 
+  CONSTRAINT [PK_dbo.CustomerId] PRIMARY KEY CLUSTERED
 (
-	[Email] ASC
+	[CustomerId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
@@ -45,6 +45,8 @@ CREATE TABLE [dbo].[Orders](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
+SET IDENTITY_INSERT [dbo].[Customers] ON 
+GO
 INSERT [dbo].[Customers] ([Email], [CustomerId], [AccountCode], [FirstName], [LastName], [FirstAddress], [City], [Country], [ZipCode], [Website], [Active], [Enrrolled], [PhoneNumber], [MobileNumber], [FaxNumber]) VALUES (N'cecil@workingdata.au', 4, N'AC761459', N'Jessie', N'Burton', N'385 Akuehe Trail', N'Hobart', N'Australia', N'038278', N'http://workingdata.com', 1, 0, N'4251231234', N'4253214321', N'4259990000')
 GO
 INSERT [dbo].[Customers] ([Email], [CustomerId], [AccountCode], [FirstName], [LastName], [FirstAddress], [City], [Country], [ZipCode], [Website], [Active], [Enrrolled], [PhoneNumber], [MobileNumber], [FaxNumber]) VALUES (N'christina@workingdata.com', 9, N'AC122458', N'Christina', N'Meyer', N'512 Tadta Pass', N'New York', N'United States', N'038278', N'http://workingdata.com', 1, 0, N'4251231234', N'4253214321', N'4259990000')
@@ -64,6 +66,8 @@ GO
 INSERT [dbo].[Customers] ([Email], [CustomerId], [AccountCode], [FirstName], [LastName], [FirstAddress], [City], [Country], [ZipCode], [Website], [Active], [Enrrolled], [PhoneNumber], [MobileNumber], [FaxNumber]) VALUES (N'steven@workingdata.mx', 5, N'AC741655', N'Steven', N'Martin', N'1646 Oriro Loop', N'Monterrey', N'Mexico', N'154715', N'http://workingdata.com', 1, 0, N'4251231234', N'4253214321', N'4259990000')
 GO
 INSERT [dbo].[Customers] ([Email], [CustomerId], [AccountCode], [FirstName], [LastName], [FirstAddress], [City], [Country], [ZipCode], [Website], [Active], [Enrrolled], [PhoneNumber], [MobileNumber], [FaxNumber]) VALUES (N'trevor@workingdata.com', 3, N'AC451745', N'Trevor', N'Adkins', N'1508 Hepik Junction', N'Toronto', N'Canada', N'44118', N'http://workingdata.com', 1, 0, N'4251231234', N'4253214321', N'4259990000')
+GO
+SET IDENTITY_INSERT [dbo].[Customers] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Orders] ON 
 GO

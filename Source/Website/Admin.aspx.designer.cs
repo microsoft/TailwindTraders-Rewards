@@ -32,6 +32,7 @@ namespace Tailwind.Traders.Rewards.Web {
         
         /// <summary>
         /// ActiveCheckbox control.
+        /// btnAddCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -41,15 +42,23 @@ namespace Tailwind.Traders.Rewards.Web {
         
         /// <summary>
         /// lblCheckbox control.
+        protected global::System.Web.UI.WebControls.Button btnAddCustomer;
+        
+        /// <summary>
+        /// btnUpdateCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblCheckbox;
-        
+
         /// <summary>
         /// EnrollCheckbox control.
+        protected global::System.Web.UI.WebControls.Button btnUpdateCustomer;
+        
+        /// <summary>
+        /// btnDeleteCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -59,6 +68,10 @@ namespace Tailwind.Traders.Rewards.Web {
         
         /// <summary>
         /// Label2 control.
+        protected global::System.Web.UI.WebControls.Button btnDeleteCustomer;
+        
+        /// <summary>
+        /// btnAddOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -68,6 +81,10 @@ namespace Tailwind.Traders.Rewards.Web {
         
         /// <summary>
         /// CheckBoxStatus control.
+        protected global::System.Web.UI.WebControls.Button btnAddOrder;
+        
+        /// <summary>
+        /// btnUpdateOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -77,11 +94,17 @@ namespace Tailwind.Traders.Rewards.Web {
         
         /// <summary>
         /// Label3 control.
+        protected global::System.Web.UI.WebControls.Button btnUpdateOrder;
+        
+        /// <summary>
+        /// btnDeleteOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label3;
+      
+        protected global::System.Web.UI.WebControls.Button btnDeleteOrder;
     }
 }
