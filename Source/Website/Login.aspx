@@ -30,7 +30,7 @@
                 </div>       
                 <asp:Button ID="btnLogin" Text="Login" runat="server" OnClick="ValidateUser" Class="btn btn-primary" />
             </div>
-            <div id="dvMessage" runat="server" visible="false" class="alert alert-danger">
+            <div id="dvMessage" runat="server" visible="false" class="alert alert-danger login-message">
                 <strong>Error!</strong>
                 <asp:Label ID="lblMessage" runat="server" />
             </div>

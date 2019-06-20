@@ -27,7 +27,11 @@
         <div>
             <asp:ContentPlaceHolder ID="Login" runat="server">
             </asp:ContentPlaceHolder>
-            <asp:ContentPlaceHolder ID="Admin" runat="server">
+            <asp:ContentPlaceHolder ID="List" runat="server">
+            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="Create" runat="server">
+            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="Update" runat="server">
             </asp:ContentPlaceHolder>
         </div>
     </form>

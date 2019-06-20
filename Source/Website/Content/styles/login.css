@@ -28,3 +28,7 @@ input.login-input {
 .login-checkbox label {
     margin-left: 10px;
 }
+
+.login-message {
+    margin-top: 20px;
+}

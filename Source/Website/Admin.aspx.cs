@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Security;
+using System.Web.UI.WebControls;
 using Tailwind.Traders.Rewards.Web.Data;
-using Tailwind.Traders.Rewards.Web.Models;
 
 namespace Tailwind.Traders.Rewards.Web
 {
@@ -9,14 +9,23 @@ namespace Tailwind.Traders.Rewards.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Page.User.Identity.IsAuthenticated)
+            if(!Page.IsPostBack)
             {
-                Label1.Text = "Logged " + Page.User.Identity.Name;
+                if (!Page.User.Identity.IsAuthenticated)
+                {
+                    FormsAuthentication.RedirectToLoginPage();
+                }
+
+                var customers = CustomerData.GetCustomers();
+
+                customersList.DataSource = customers;
+                customersList.DataBind();
             }
-            else
-            {
-                FormsAuthentication.RedirectToLoginPage();
-            }
+        }
+
+        protected void OnClickBtnCreateCustomer(object sender, EventArgs e)
+        {
+            Response.Redirect("Create.aspx", true);
         }
 
         protected void OnClickSignout(object sender, EventArgs e)
@@ -25,140 +34,16 @@ namespace Tailwind.Traders.Rewards.Web
             Response.Redirect("Default.aspx", true);
         }
 
-        private bool IsValidCustomer()
-        {
-            if(!IsValidEmail(Customer_Email.Text.Trim()))
-            {
-                return false;
-            }
-
-            if(ExistsCustomer(Customer_Email.Text.Trim()))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool IsValidEmail(string email)
-        {
-            if(email == string.Empty)
-            {
-                return false;
-            }
-
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private bool ExistsCustomer(string email)
-        {
-            var user = CustomerData.GetCustomerByEmailOrName(email);
-
-            return (user != null);
-        }
-
-        protected void OnClickAddCustomer(object sender, EventArgs e)
-        {
-            if(!IsValidCustomer())
-            {
-                // TODO mirar si mostramos mensaje de error
-                return;
-            }
-
-            var customer = new Customer
-            {
-                Email = Customer_Email.Text.Trim(),
-                RowVersion = new byte[] { },
-                AccountCode = Customer_AccountCode.Text.Trim(),
-                FirstName = Customer_FirstName.Text.Trim(),
-                LastName = Customer_LastName.Text.Trim(),
-                FirstAddress = Customer_FirstAddress.Text.Trim(),
-                City = Customer_City.Text.Trim(),
-                Country = Customer_Country.Text.Trim(),
-                ZipCode = Customer_ZipCode.Text.Trim(),
-                Website = Customer_Website.Text.Trim(),
-                Active = true,
-                Enrrolled = EnrollmentStatusEnum.Uninitialized,
-                PhoneNumber = Customer_PhoneNumber.Text.Trim(),
-                MobileNumber = Customer_MobileNumber.Text.Trim(),
-                FaxNumber = Customer_FaxNumber.Text.Trim()
-            };
-
-            CustomerData.AddCustomer(customer);
-        }
-
         protected void OnClickUpdateCustomer(object sender, EventArgs e)
         {
-            var customer = new Customer
-            {
-                Email = "MODIFIED@customers.com",
-                RowVersion = new byte[] { },
-                AccountCode = "UnaAccountCode",
-                FirstName = "John modified",
-                LastName = "Doe",
-                FirstAddress = "First address value",
-                City = "Una city",
-                Country = "Un country",
-                ZipCode = "12344",
-                Website = "Un website",
-                Active = true,
-                Enrrolled = EnrollmentStatusEnum.Uninitialized,
-                PhoneNumber = "3546778",
-                MobileNumber = "379839304",
-                FaxNumber = "98375903",
-                CustomerId = 11
-            };
-
-            CustomerData.UpdateCustomer(customer);
+            var btn = (Button)sender;
+            var customerId = btn.CommandArgument.ToString();
+            Response.Redirect("Update.aspx?customerid="+customerId);
         }
-
-        protected void OnClickDeleteCustomer(object sender, EventArgs e)
+        
+            protected void OnClickDeleteCustomer(object sender, EventArgs e)
         {
-            CustomerData.DeleteCustomer(1);
-        }
-
-        protected void OnClickAddOrder(object sender, EventArgs e)
-        {
-            var order = new Order
-            {
-                Code = "121344443",
-                Date = DateTime.Now,
-                ItemName = "Un item name",
-                Type = "Un type",
-                Status = "un status",
-                Total = 234
-            };
-
-            OrdersData.AddOrder(order);
-        }
-
-        protected void OnClickUpdateOrder(object sender, EventArgs e)
-        {
-            var order = new Order
-            {
-                Code = "CODEMODIFIEDhjksdafhkjsdaf",
-                Date = DateTime.Now,
-                ItemName = "Un item name",
-                Type = "Un type",
-                Status = "un status",
-                Total = 234,
-                OrderId = 12
-            };
-
-            OrdersData.UpdateOrder(order);
-        }
-
-        protected void OnClickDeleteOrder(object sender, EventArgs e)
-        {
-            OrdersData.DeleteOrder(1);
+            //Response.Redirect("Crea")
         }
     }
 }

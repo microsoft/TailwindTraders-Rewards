@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Tailwind.Traders.Rewards.Web.Models;
@@ -61,6 +62,21 @@ namespace Tailwind.Traders.Rewards.Web.Data
 
                 return null;
                 
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static IEnumerable<Customer> GetCustomers()
+        {
+            var query = string.Format("SELECT * FROM CUSTOMERS");
+
+            try
+            {
+                var result = DataAccessHandler.ExecuteSelect(query);
+                return GetMappedCustomers(result);
             }
             catch (Exception e)
             {
@@ -232,6 +248,17 @@ namespace Tailwind.Traders.Rewards.Web.Data
                 Website = customerRow["Website"].ToString(),
                 ZipCode = customerRow["ZipCode"].ToString()
             };
+        }
+
+        private static IEnumerable<Customer> GetMappedCustomers(DataTable customersResult)
+        {
+            var mappedCustomers = new List<Customer>();
+            foreach (DataRow row in customersResult.Rows)
+            {
+                mappedCustomers.Add(GetMappedCustomer(row));
+            }
+
+            return mappedCustomers;
         }
     }
 }
