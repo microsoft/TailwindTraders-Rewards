@@ -31,12 +31,17 @@ namespace Tailwind.Traders.Rewards.Web {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
+        /// ActiveCheckbox control.
         /// btnAddCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ActiveCheckbox;
+        
+        /// <summary>
+        /// lblCheckbox control.
         protected global::System.Web.UI.WebControls.Button btnAddCustomer;
         
         /// <summary>
@@ -46,6 +51,10 @@ namespace Tailwind.Traders.Rewards.Web {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblCheckbox;
+
+        /// <summary>
+        /// EnrollCheckbox control.
         protected global::System.Web.UI.WebControls.Button btnUpdateCustomer;
         
         /// <summary>
@@ -55,6 +64,10 @@ namespace Tailwind.Traders.Rewards.Web {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox EnrollCheckbox;
+        
+        /// <summary>
+        /// Label2 control.
         protected global::System.Web.UI.WebControls.Button btnDeleteCustomer;
         
         /// <summary>
@@ -64,6 +77,10 @@ namespace Tailwind.Traders.Rewards.Web {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label2;
+        
+        /// <summary>
+        /// CheckBoxStatus control.
         protected global::System.Web.UI.WebControls.Button btnAddOrder;
         
         /// <summary>
@@ -73,6 +90,10 @@ namespace Tailwind.Traders.Rewards.Web {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxStatus;
+        
+        /// <summary>
+        /// Label3 control.
         protected global::System.Web.UI.WebControls.Button btnUpdateOrder;
         
         /// <summary>
@@ -82,6 +103,8 @@ namespace Tailwind.Traders.Rewards.Web {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label3;
+      
         protected global::System.Web.UI.WebControls.Button btnDeleteOrder;
     }
 }
