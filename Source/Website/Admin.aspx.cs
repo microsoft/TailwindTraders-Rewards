@@ -13,7 +13,8 @@ namespace Tailwind.Traders.Rewards.Web
             }
             else
             {
-                Label1.Text = "NO Logado";
+                //Label1.Text = "NO Logado";
+                FormsAuthentication.RedirectToLoginPage();
             }
         }
 
