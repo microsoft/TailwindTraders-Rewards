@@ -102,7 +102,7 @@ namespace Tailwind.Traders.Rewards.Web
                 CustomerId = 1 // sacar de un campo hidden
             };
 
-            CustomerData.UpdateCustomer(customer);
+            CustomerData.CreateCustomer(customer);
         }
 
         protected void OnClickDeleteCustomer(object sender, EventArgs e)

@@ -163,7 +163,55 @@ namespace Tailwind.Traders.Rewards.Web.Data
             }
         }
 
-        public static void UpdateCustomer(Customer customer)
+        public static void UpdateCustomer(Customer customer, string customerId)
+        {
+            var query = @"UPDATE CUSTOMERS
+                            SET Email = @Email
+                            ,AccountCode = @AccountCode
+                            ,FirstName = @FirstName
+                            ,LastName = @LastName
+                            ,FirstAddress = @FirstAddress
+                            ,City = @City
+                            ,Country = @Country
+                            ,ZipCode = @ZipCode
+                            ,Website = @Website
+                            ,Active = @Active
+                            ,Enrrolled = @Enrrolled
+                            ,PhoneNumber = @PhoneNumber
+                            ,MobileNumber = @MobileNumber
+                            ,FaxNumber = @FaxNumber
+                        WHERE CustomerId = @CustomerId";
+
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Email", customer.Email),
+                new SqlParameter("@AccountCode", customer.AccountCode),
+                new SqlParameter("@FirstName", customer.FirstName),
+                new SqlParameter("@LastName", customer.LastName),
+                new SqlParameter("@FirstAddress", customer.FirstAddress),
+                new SqlParameter("@City", customer.City),
+                new SqlParameter("@Country", customer.Country),
+                new SqlParameter("@ZipCode", customer.ZipCode),
+                new SqlParameter("@Website", customer.Website),
+                new SqlParameter("@Active", (bool) customer.Active),
+                new SqlParameter("@Enrrolled", (int) customer.Enrrolled),
+                new SqlParameter("@PhoneNumber", customer.PhoneNumber),
+                new SqlParameter("@MobileNumber", customer.MobileNumber),
+                new SqlParameter("@FaxNumber", customer.FaxNumber),
+                new SqlParameter("@CustomerId", customerId)
+            };
+
+            try
+            {
+                DataAccessHandler.ExecuteNonSelect(query, parameters);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void CreateCustomer(Customer customer)
         {
             var query = @"UPDATE CUSTOMERS
                             SET Email = @Email

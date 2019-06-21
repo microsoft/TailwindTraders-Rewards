@@ -7,6 +7,10 @@
         <asp:Button CssClass="btn btn-primary" ID="Button1" runat="server" OnClick="OnClickSignout" Text="Log out" />
     </div>
 
+    <asp:Panel ID="dvMessageDelete" runat="server" visible="false" >
+            <asp:Label ID="lblMessageDelete" runat="server" />
+        </asp:Panel>
+
     <asp:ListView ID="customersList" ItemPlaceholderID="itemPlaceHolder" runat="server" ItemType="Tailwind.Traders.Rewards.Web.Models.Customer">
         <EmptyDataTemplate>
             <table class="table table-striped">

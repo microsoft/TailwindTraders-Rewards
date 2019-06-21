@@ -8,6 +8,7 @@ namespace Tailwind.Traders.Rewards.Web
 {
     public partial class Update : System.Web.UI.Page
     {
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -20,6 +21,7 @@ namespace Tailwind.Traders.Rewards.Web
                 {
                     FormsAuthentication.RedirectToLoginPage();
                 }
+
 
                 var customerId = Request.QueryString["customerId"];
 
@@ -36,11 +38,10 @@ namespace Tailwind.Traders.Rewards.Web
                 }
 
                 FillFields(customer);
+
+                dvMessageUpdate.Visible = false;
+                lblMessageUpdate.Text = string.Empty;
             }
-
-            dvMessageUpdate.Visible = false;
-            lblMessageUpdate.Text = string.Empty;
-
         }
 
         private void FillFields(Customer customer)
@@ -87,9 +88,11 @@ namespace Tailwind.Traders.Rewards.Web
 
             try
             {
-                CustomerData.UpdateCustomer(customer);
+                var customerId = Request.QueryString["customerId"];
+
+                CustomerData.UpdateCustomer(customer, customerId);
                 dvMessageUpdate.Visible = true;
-                lblMessageUpdate.Text = "Customer created successfully";
+                lblMessageUpdate.Text = "Customer updated successfully";
                 dvMessageUpdate.CssClass = "alert alert-success";
             }
             catch (Exception)
