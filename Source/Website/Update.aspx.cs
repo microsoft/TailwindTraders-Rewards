@@ -78,23 +78,20 @@ namespace Tailwind.Traders.Rewards.Web
                 Active = CustomerUpdate_Active.Checked,
                 PhoneNumber = CustomerUpdate_PhoneNumber.Text.Trim(),
                 MobileNumber = CustomerUpdate_MobileNumber.Text.Trim(),
-                FaxNumber = CustomerUpdate_FaxNumber.Text.Trim()
+                FaxNumber = CustomerUpdate_FaxNumber.Text.Trim(),
+                CustomerId = int.Parse(Request.QueryString["customerId"])
             };
 
             try
             {
-                var customerId = Request.QueryString["customerId"];
-
-                CustomerData.UpdateCustomer(customer, customerId);
-                dvMessageUpdate.Visible = true;
-                lblMessageUpdate.Text = "Customer updated successfully";
-                dvMessageUpdate.CssClass = "alert alert-success";
+                CustomerData.UpdateCustomer(customer);
+                Response.Redirect("Admin.aspx", true);
             }
             catch (Exception)
             {
-                dvMessageUpdate.Visible = true;
                 lblMessageUpdate.Text = "It was not possible to update the customer";
                 dvMessageUpdate.CssClass = "alert alert-error";
+                dvMessageUpdate.Visible = true;
             }
         }
 

@@ -31,11 +31,11 @@ namespace Tailwind.Traders.Rewards.Web
         {
             FormsAuthentication.SignOut();
             Response.Redirect("Default.aspx", true);
-        }       
+        }
 
         protected void OnClickAddCustomer(object sender, EventArgs e)
         {
-            if(!IsValidCustomer())
+            if (!IsValidCustomer())
             {
                 dvMessageCreate.Visible = true;
                 lblMessageCreate.Text = "It was not possible to create a customer";
@@ -76,83 +76,11 @@ namespace Tailwind.Traders.Rewards.Web
                 lblMessageCreate.Text = "It was not possible to create a customer";
                 dvMessageCreate.CssClass = "alert alert-error";
             }
-        }
-
-        protected void OnClickUpdateCustomer(object sender, EventArgs e)
-        {
-            var customer = new Customer
-            {
-                Email = Customer_Email.Text.Trim(),
-                RowVersion = new byte[] { },
-                AccountCode = Customer_AccountCode.Text.Trim(),
-                FirstName = Customer_FirstName.Text.Trim(),
-                LastName = Customer_LastName.Text.Trim(),
-                FirstAddress = Customer_FirstAddress.Text.Trim(),
-                City = Customer_City.Text.Trim(),
-                Country = Customer_Country.Text.Trim(),
-                ZipCode = Customer_ZipCode.Text.Trim(),
-                Website = Customer_Website.Text.Trim(),
-                Active = true,
-                //Enrrolled = EnrollmentStatusEnum.Uninitialized,
-                PhoneNumber = Customer_PhoneNumber.Text.Trim(),
-                MobileNumber = Customer_MobileNumber.Text.Trim(),
-                FaxNumber = Customer_FaxNumber.Text.Trim(),
-                CustomerId = 1 // sacar de un campo hidden
-            };
-
-            try
-            {
-                CustomerData.CreateCustomer(customer);
-                RedirectToList();
-            }
-            catch (Exception)
-            {
-                dvMessageCreate.Visible = true;
-                lblMessageCreate.Text = "It was not possible to create the customer";
-                dvMessageCreate.CssClass = "alert alert-error";
- 
-            }
-        }
+        }        
 
         protected void OnClickDeleteCustomer(object sender, EventArgs e)
         {
             CustomerData.DeleteCustomer(1);
-        }
-
-        protected void OnClickAddOrder(object sender, EventArgs e)
-        {
-            var order = new Order
-            {
-                Code = "121344443",
-                Date = DateTime.Now,
-                ItemName = "Un item name",
-                Type = "Un type",
-                Status = "un status",
-                Total = 234
-            };
-
-            OrdersData.AddOrder(order);
-        }
-
-        protected void OnClickUpdateOrder(object sender, EventArgs e)
-        {
-            var order = new Order
-            {
-                Code = "CODEMODIFIED",
-                Date = DateTime.Now,
-                ItemName = "Un item name",
-                Type = "Un type",
-                Status = "un status",
-                Total = 234,
-                OrderId = 12
-            };
-
-            OrdersData.UpdateOrder(order);
-        }
-
-        protected void OnClickDeleteOrder(object sender, EventArgs e)
-        {
-            OrdersData.DeleteOrder(1);
         }
 
         protected void OnClickCancel(object sender, EventArgs e)

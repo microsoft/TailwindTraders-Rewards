@@ -45,3 +45,8 @@ input.admin-form-input {
     display: inline-block;
     margin-left: 10px;
 }
+
+.form-required {
+    color: #ff0000;
+    margin-left: 10px;
+}
