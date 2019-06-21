@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Security;
+using System.Web.UI.WebControls;
 using Tailwind.Traders.Rewards.Web.Data;
-using Tailwind.Traders.Rewards.Web.Models;
 
 namespace Tailwind.Traders.Rewards.Web
 {
@@ -9,14 +10,20 @@ namespace Tailwind.Traders.Rewards.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Page.User.Identity.IsAuthenticated)
+            if(!Page.IsPostBack)
             {
-                Label1.Text = "Logado " + Page.User.Identity.Name;
+                if (!Page.User.Identity.IsAuthenticated)
+                {
+                    FormsAuthentication.RedirectToLoginPage();
+                }
+
+                BindCustomersToListView();
             }
-            else
-            {
-                FormsAuthentication.RedirectToLoginPage();
-            }
+        }
+
+        protected void OnClickBtnCreateCustomer(object sender, EventArgs e)
+        {
+            Response.Redirect("Create.aspx", true);
         }
 
         protected void OnClickSignout(object sender, EventArgs e)
@@ -25,94 +32,44 @@ namespace Tailwind.Traders.Rewards.Web
             Response.Redirect("Default.aspx", true);
         }
 
-        protected void OnClickAddCustomer(object sender, EventArgs e)
-        {
-            var customer = new Customer
-            {
-                Email = "newcustomer@customers.com",
-                RowVersion = new byte[] { },
-                AccountCode = "UnaAccountCode",
-                FirstName = "John",
-                LastName = "Doe",
-                FirstAddress = "First address value",
-                City = "Una city",
-                Country = "Un country",
-                ZipCode = "12344",
-                Website = "Un website",
-                Active = true,
-                Enrrolled = EnrollmentStatusEnum.Uninitialized,
-                PhoneNumber = "3546778",
-                MobileNumber = "379839304",
-                FaxNumber = "98375903"
-            };
-
-            CustomerData.AddCustomer(customer);
-        }
-
         protected void OnClickUpdateCustomer(object sender, EventArgs e)
         {
-            var customer = new Customer
-            {
-                Email = "MODIFIED@customers.com",
-                RowVersion = new byte[] { },
-                AccountCode = "UnaAccountCode",
-                FirstName = "John modified",
-                LastName = "Doe",
-                FirstAddress = "First address value",
-                City = "Una city",
-                Country = "Un country",
-                ZipCode = "12344",
-                Website = "Un website",
-                Active = true,
-                Enrrolled = EnrollmentStatusEnum.Uninitialized,
-                PhoneNumber = "3546778",
-                MobileNumber = "379839304",
-                FaxNumber = "98375903",
-                CustomerId = 11
-            };
+            var btn = (Button)sender;
+            var customerId = btn.CommandArgument.ToString();
+            Response.Redirect("Update.aspx?customerid=" + customerId);
 
-            CustomerData.UpdateCustomer(customer);
         }
-
+        
         protected void OnClickDeleteCustomer(object sender, EventArgs e)
         {
-            CustomerData.DeleteCustomer(1);
-        }
+            var btn = (Button)sender;
+            var customerId = int.Parse(btn.CommandArgument.ToString());
 
-        protected void OnClickAddOrder(object sender, EventArgs e)
-        {
-            var order = new Order
+            try
             {
-                Code = "121344443",
-                Date = DateTime.Now,
-                ItemName = "Un item name",
-                Type = "Un type",
-                Status = "un status",
-                Total = 234
-            };
+                CustomerData.DeleteCustomer(customerId);
 
-            OrdersData.AddOrder(order);
-        }
+                BindCustomersToListView();
 
-        protected void OnClickUpdateOrder(object sender, EventArgs e)
-        {
-            var order = new Order
+                lblMessageDelete.Text = "Customer deleted successfully";
+                dvMessageDelete.CssClass = "alert alert-success";
+                dvMessageDelete.Visible = true;
+
+            }
+            catch (Exception)
             {
-                Code = "CODEMODIFIEDhjksdafhkjsdaf",
-                Date = DateTime.Now,
-                ItemName = "Un item name",
-                Type = "Un type",
-                Status = "un status",
-                Total = 234,
-                OrderId = 12
-            };
-
-            OrdersData.UpdateOrder(order);
+                lblMessageDelete.Text = "It was not possible to delete the customer";
+                dvMessageDelete.CssClass = "alert alert-error";
+                dvMessageDelete.Visible = true;
+            }         
         }
 
-        protected void OnClickDeleteOrder(object sender, EventArgs e)
+        private void BindCustomersToListView()
         {
-            OrdersData.DeleteOrder(1);
+            var customers = CustomerData.GetCustomers();
+
+            customersList.DataSource = customers;
+            customersList.DataBind();
         }
     }
 }
