@@ -22,6 +22,15 @@ namespace Tailwind.Traders.Rewards.Web {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
+        /// btnCreateCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreateCustomer;
+        
+        /// <summary>
         /// dvMessageDelete control.
         /// </summary>
         /// <remarks>
@@ -47,14 +56,5 @@ namespace Tailwind.Traders.Rewards.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView customersList;
-        
-        /// <summary>
-        /// btnCreateCustomer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCreateCustomer;
     }
 }

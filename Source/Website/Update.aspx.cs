@@ -13,15 +13,10 @@ namespace Tailwind.Traders.Rewards.Web
         {
             if (!IsPostBack)
             {
-                if (Page.User.Identity.IsAuthenticated)
-                {
-                    //Label1.Text = "Logged " + Page.User.Identity.Name;
-                }
-                else
+                if (!Page.User.Identity.IsAuthenticated)
                 {
                     FormsAuthentication.RedirectToLoginPage();
                 }
-
 
                 var customerId = Request.QueryString["customerId"];
 
@@ -101,8 +96,11 @@ namespace Tailwind.Traders.Rewards.Web
                 lblMessageUpdate.Text = "It was not possible to update the customer";
                 dvMessageUpdate.CssClass = "alert alert-error";
             }
+        }
 
-            
+        protected void OnClickCancel(object sender, EventArgs e)
+        {
+            Response.Redirect("Admin.aspx", true);
         }
     }
 }

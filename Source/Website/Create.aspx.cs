@@ -9,8 +9,10 @@ namespace Tailwind.Traders.Rewards.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
+                Customer_Active.Checked = true;
+
                 if (Page.User.Identity.IsAuthenticated)
                 {
                     LabelName.Text = "Logged " + Page.User.Identity.Name;
@@ -29,7 +31,7 @@ namespace Tailwind.Traders.Rewards.Web
         {
             FormsAuthentication.SignOut();
             Response.Redirect("Default.aspx", true);
-        }        
+        }       
 
         protected void OnClickAddCustomer(object sender, EventArgs e)
         {
@@ -60,8 +62,6 @@ namespace Tailwind.Traders.Rewards.Web
                 FaxNumber = Customer_FaxNumber.Text.Trim()
             };
 
-            
-
             try
             {
                 CustomerData.AddCustomer(customer);
@@ -76,8 +76,6 @@ namespace Tailwind.Traders.Rewards.Web
                 lblMessageCreate.Text = "It was not possible to create a customer";
                 dvMessageCreate.CssClass = "alert alert-error";
             }
-
-            
         }
 
         protected void OnClickUpdateCustomer(object sender, EventArgs e)
@@ -102,7 +100,18 @@ namespace Tailwind.Traders.Rewards.Web
                 CustomerId = 1 // sacar de un campo hidden
             };
 
-            CustomerData.CreateCustomer(customer);
+            try
+            {
+                CustomerData.CreateCustomer(customer);
+                RedirectToList();
+            }
+            catch (Exception)
+            {
+                dvMessageCreate.Visible = true;
+                lblMessageCreate.Text = "It was not possible to create the customer";
+                dvMessageCreate.CssClass = "alert alert-error";
+ 
+            }
         }
 
         protected void OnClickDeleteCustomer(object sender, EventArgs e)
@@ -129,7 +138,7 @@ namespace Tailwind.Traders.Rewards.Web
         {
             var order = new Order
             {
-                Code = "CODEMODIFIEDhjksdafhkjsdaf",
+                Code = "CODEMODIFIED",
                 Date = DateTime.Now,
                 ItemName = "Un item name",
                 Type = "Un type",
@@ -144,6 +153,16 @@ namespace Tailwind.Traders.Rewards.Web
         protected void OnClickDeleteOrder(object sender, EventArgs e)
         {
             OrdersData.DeleteOrder(1);
+        }
+
+        protected void OnClickCancel(object sender, EventArgs e)
+        {
+            RedirectToList();
+        }
+
+        private void RedirectToList()
+        {
+            Response.Redirect("Admin.aspx", true);
         }
 
         private bool IsValidCustomer()

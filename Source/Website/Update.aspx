@@ -18,15 +18,16 @@
         </asp:Panel>
 
         <div class="tabbable">
-            <%--<!-- Only required for left/right tabs -->--%>
             <ul class="nav nav-tabs admin-tabs">
                 <li class="active"><a href="#tab1" data-toggle="tab">Customers</a></li>
-                <%--<li><a href="#tab2" data-toggle="tab">Orders</a></li>--%>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab1">
                     <fieldset class="admin-form">
                         <h2 class="title">Customers</h2>
+                         <div class="checkbox-wrapper">
+                            <asp:CheckBox ID="CustomerUpdate_Active" Text="Active" runat="server" AutoPostBack="false" />
+                        </div>
                         <label>Email</label>
                         <asp:TextBox ID="CustomerUpdate_Email" type="Email" CssClass="admin-form-input" runat="server" placeholder="email@email.com" required />
                         <label>Account Code</label>
@@ -51,31 +52,10 @@
                         <asp:TextBox ID="CustomerUpdate_MobileNumber" runat="server" CssClass="admin-form-input" type="text" placeholder="01-35-9876-98-98"/>
                         <label>Fax number</label>
                         <asp:TextBox ID="CustomerUpdate_FaxNumber" runat="server" CssClass="admin-form-input" type="text" placeholder="02-35-9876-98-98"/>
-                        <div class="checkbox-wrapper">
-                            <asp:CheckBox ID="CustomerUpdate_Active" Text="Active" runat="server" AutoPostBack="true" />
-                            <%--<label runat="server" id="lblCheckbox" for="Customer_Active">Active</label>--%>
-                        </div>
-                        <asp:Button ID="btnSaveCustomer" runat="server" OnClick="OnClickUpdateCustomer" Text="Update customer" CssClass="btn btn-primary" />
+                        <asp:Button ID="btnSaveCustomer" runat="server" OnClick="OnClickUpdateCustomer" Text="Update customer" CssClass="btn btn-success" />
+                        <asp:Button ID="btnCancelSave" runat="server" OnClick="OnClickCancel" Text="Cancel" CssClass="btn" />
                     </fieldset>
                 </div>
-                <%--<div class="tab-pane" id="tab2">
-                    <fieldset class="admin-form">
-                        <h2 class="title"">Orders</h2>
-                        <label>Order code</label>
-                        <asp:TextBox runat="server" CssClass="admin-form-input" type="email" placeholder="192384529EC"/>
-                        <label>Type</label>
-                        <asp:TextBox runat="server" CssClass="admin-form-input" type="text" placeholder="Retail"/>
-                        <label>Item name</label>
-                        <asp:TextBox runat="server" CssClass="admin-form-input" type="text" placeholder="Hammer"/>
-                        <div class="checkbox-wrapper">
-                            <asp:CheckBox ID="CheckBoxStatus" runat="server" AutoPostBack="true" />
-                            <label runat="server" id="Label3" for="EnrollCheckbox">Status</label>
-                        </div>
-                        <label>Total</label>
-                        <asp:TextBox runat="server" CssClass="admin-form-input" type="text" placeholder="100.00"/>
-                        <button class="btn btn-primary" type="submit" >Submit form</button>
-                    </fieldset>
-                </div>--%>
             </div>
         </div>
     </div>

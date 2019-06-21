@@ -51,7 +51,7 @@ namespace Tailwind.Traders.Rewards.Web
 
                 BindCustomersToListView();
 
-                lblMessageDelete.Text = "Customer created successfully";
+                lblMessageDelete.Text = "Customer deleted successfully";
                 dvMessageDelete.CssClass = "alert alert-success";
                 dvMessageDelete.Visible = true;
 

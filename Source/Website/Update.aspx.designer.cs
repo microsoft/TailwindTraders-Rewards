@@ -40,6 +40,15 @@ namespace Tailwind.Traders.Rewards.Web {
         protected global::System.Web.UI.WebControls.Label lblMessageUpdate;
         
         /// <summary>
+        /// CustomerUpdate_Active control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CustomerUpdate_Active;
+        
+        /// <summary>
         /// CustomerUpdate_Email control.
         /// </summary>
         /// <remarks>
@@ -148,15 +157,6 @@ namespace Tailwind.Traders.Rewards.Web {
         protected global::System.Web.UI.WebControls.TextBox CustomerUpdate_FaxNumber;
         
         /// <summary>
-        /// CustomerUpdate_Active control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CustomerUpdate_Active;
-        
-        /// <summary>
         /// btnSaveCustomer control.
         /// </summary>
         /// <remarks>
@@ -164,5 +164,14 @@ namespace Tailwind.Traders.Rewards.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveCustomer;
+        
+        /// <summary>
+        /// btnCancelSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelSave;
     }
 }

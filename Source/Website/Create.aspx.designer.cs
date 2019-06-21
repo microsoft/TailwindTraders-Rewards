@@ -49,6 +49,15 @@ namespace Tailwind.Traders.Rewards.Web {
         protected global::System.Web.UI.WebControls.Label lblMessageCreate;
         
         /// <summary>
+        /// Customer_Active control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox Customer_Active;
+        
+        /// <summary>
         /// Customer_Email control.
         /// </summary>
         /// <remarks>
@@ -157,15 +166,6 @@ namespace Tailwind.Traders.Rewards.Web {
         protected global::System.Web.UI.WebControls.TextBox Customer_FaxNumber;
         
         /// <summary>
-        /// Customer_Active control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox Customer_Active;
-        
-        /// <summary>
         /// btnSaveCustomer control.
         /// </summary>
         /// <remarks>
@@ -175,21 +175,12 @@ namespace Tailwind.Traders.Rewards.Web {
         protected global::System.Web.UI.WebControls.Button btnSaveCustomer;
         
         /// <summary>
-        /// CheckBoxStatus control.
+        /// btnCancelCreate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBoxStatus;
-        
-        /// <summary>
-        /// Label3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label3;
+        protected global::System.Web.UI.WebControls.Button btnCancelCreate;
     }
 }

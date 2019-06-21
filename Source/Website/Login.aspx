@@ -10,8 +10,8 @@
 </head>
 <body>
     <div class="container login-container row">
-        <h2>Admin login</h2>
         <form class="form-horizontal login-form span6" runat="server">
+            <h2 class="login-title">Admin login</h2>
             <div>
                 <label for="txtUsername">Username</label>
                 <div>
