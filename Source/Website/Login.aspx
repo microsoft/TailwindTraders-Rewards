@@ -10,8 +10,8 @@
 </head>
 <body>
     <div class="container login-container row">
-        <h2>Admin login</h2>
         <form class="form-horizontal login-form span6" runat="server">
+            <h2 class="login-title">Admin login</h2>
             <div>
                 <label for="txtUsername">Username</label>
                 <div>
@@ -30,7 +30,7 @@
                 </div>       
                 <asp:Button ID="btnLogin" Text="Login" runat="server" OnClick="ValidateUser" Class="btn btn-primary" />
             </div>
-            <div id="dvMessage" runat="server" visible="false" class="alert alert-danger">
+            <div id="dvMessage" runat="server" visible="false" class="alert alert-danger login-message">
                 <strong>Error!</strong>
                 <asp:Label ID="lblMessage" runat="server" />
             </div>

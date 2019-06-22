@@ -1,4 +1,8 @@
-﻿.admin-form {
+﻿.admin-container {
+    width: 1180px;
+}
+
+.admin-form {
     padding: 0 15px 0 15px;
 }
 
@@ -12,6 +16,10 @@ input.admin-form-input {
     justify-content: space-between;
     align-items: center;
     padding: 15px 0 15px 0;
+}
+
+.admin-table {
+    margin-top: 30px;
 }
 
 .admin-message {
@@ -35,5 +43,10 @@ input.admin-form-input {
 
 .checkbox-wrapper label {
     display: inline-block;
+    margin-left: 10px;
+}
+
+.form-required {
+    color: #ff0000;
     margin-left: 10px;
 }

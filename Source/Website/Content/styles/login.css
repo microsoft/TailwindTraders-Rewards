@@ -19,12 +19,25 @@ input.login-input {
 }
 
 .login-checkbox {
-    margin-top: 10px;
-    margin-bottom: 10px;
     display: flex;
     flex-direction: row;
 }
 
 .login-checkbox label {
     margin-left: 10px;
+}
+
+.login-message {
+    margin-top: 20px;
+}
+
+.login-title {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.login-container input {
+    margin-bottom: 15px;
 }

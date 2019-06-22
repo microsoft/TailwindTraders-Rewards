@@ -13,15 +13,6 @@ namespace Tailwind.Traders.Rewards.Web {
     public partial class Admin {
         
         /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-        
-        /// <summary>
         /// Button1 control.
         /// </summary>
         /// <remarks>
@@ -31,80 +22,39 @@ namespace Tailwind.Traders.Rewards.Web {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// ActiveCheckbox control.
-        /// btnAddCustomer control.
+        /// btnCreateCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ActiveCheckbox;
+        protected global::System.Web.UI.WebControls.Button btnCreateCustomer;
         
         /// <summary>
-        /// lblCheckbox control.
-        protected global::System.Web.UI.WebControls.Button btnAddCustomer;
-        
-        /// <summary>
-        /// btnUpdateCustomer control.
+        /// dvMessageDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblCheckbox;
-
-        /// <summary>
-        /// EnrollCheckbox control.
-        protected global::System.Web.UI.WebControls.Button btnUpdateCustomer;
+        protected global::System.Web.UI.WebControls.Panel dvMessageDelete;
         
         /// <summary>
-        /// btnDeleteCustomer control.
+        /// lblMessageDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox EnrollCheckbox;
+        protected global::System.Web.UI.WebControls.Label lblMessageDelete;
         
         /// <summary>
-        /// Label2 control.
-        protected global::System.Web.UI.WebControls.Button btnDeleteCustomer;
-        
-        /// <summary>
-        /// btnAddOrder control.
+        /// customersList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label2;
-        
-        /// <summary>
-        /// CheckBoxStatus control.
-        protected global::System.Web.UI.WebControls.Button btnAddOrder;
-        
-        /// <summary>
-        /// btnUpdateOrder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBoxStatus;
-        
-        /// <summary>
-        /// Label3 control.
-        protected global::System.Web.UI.WebControls.Button btnUpdateOrder;
-        
-        /// <summary>
-        /// btnDeleteOrder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label3;
-      
-        protected global::System.Web.UI.WebControls.Button btnDeleteOrder;
+        protected global::System.Web.UI.WebControls.ListView customersList;
     }
 }

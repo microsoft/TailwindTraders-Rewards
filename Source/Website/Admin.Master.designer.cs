@@ -31,12 +31,30 @@ namespace Tailwind.Traders.Rewards.Web {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder Login;
         
         /// <summary>
-        /// Admin control.
+        /// List control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder Admin;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder List;
+        
+        /// <summary>
+        /// Create control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder Create;
+        
+        /// <summary>
+        /// Update control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder Update;
     }
 }
