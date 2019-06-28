@@ -13,7 +13,7 @@ namespace Tailwind.Traders.Rewards.Web.Data
 
             try
             {
-                var connectionString = ConfigurationManager.ConnectionStrings["rewards"].ConnectionString;
+                var connectionString = ConfigurationManager.ConnectionStrings["dbContext"].ConnectionString;
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 using (SqlCommand command = new SqlCommand(query, con))
