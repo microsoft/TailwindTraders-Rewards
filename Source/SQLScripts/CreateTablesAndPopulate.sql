@@ -1,9 +1,14 @@
-USE [rewards]
+USE [rewardsdb]
 GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+IF NOT EXISTS (
+	SELECT [name]
+	FROM sys.tables
+	WHERE [name] = 'Customers'
+)
 CREATE TABLE [dbo].[Customers](
 	[CustomerId] [int] IDENTITY(1,1) NOT NULL,
 	[Email] [nvarchar](128) NOT NULL UNIQUE,
@@ -26,11 +31,18 @@ CREATE TABLE [dbo].[Customers](
 	[CustomerId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+ELSE
+	TRUNCATE TABLE [dbo].[Customers]
 GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+IF NOT EXISTS (
+	SELECT [name]
+	FROM sys.tables
+	WHERE [name] = 'Orders'
+)
 CREATE TABLE [dbo].[Orders](
 	[OrderId] [int] IDENTITY(1,1) NOT NULL,
 	[Code] [nvarchar](max) NULL,
@@ -44,6 +56,8 @@ CREATE TABLE [dbo].[Orders](
 	[OrderId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+ELSE
+	TRUNCATE TABLE [dbo].[Orders]
 GO
 SET IDENTITY_INSERT [dbo].[Customers] ON 
 GO
