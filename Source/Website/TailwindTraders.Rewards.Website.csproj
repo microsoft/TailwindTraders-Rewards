@@ -183,8 +183,6 @@
     <Content Include="Admin.Master" />
     <None Include="Properties\PublishProfiles\ttrewards-dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\ttrewardsdevapp - Web Deploy.pubxml" />
-    <Content Include="App_Data\TransformScripts\Set-WebConfigSettings.ps1" />
-    <Content Include="App_Data\TransformScripts\Startup.ps1" />
     <Content Include="transform.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
