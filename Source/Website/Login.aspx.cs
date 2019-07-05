@@ -29,10 +29,34 @@ namespace Tailwind.Traders.Rewards.Web
 
         private bool IsValidUser(string userName, string password)
         {
-            var adminUser = ConfigurationManager.AppSettings["AdminUsername"];
-            var adminPassword = ConfigurationManager.AppSettings["AdminPassword"];
+            var adminUser = GetValidUsername();
+            var adminPassword = GetValidPassword();
 
             return (userName == adminUser) && (password == adminPassword);
+        }
+
+        private string GetValidUsername()
+        {
+            var adminUser = Environment.GetEnvironmentVariable("AdminUsername");
+
+            if (string.IsNullOrEmpty(adminUser))
+            {
+                adminUser = ConfigurationManager.AppSettings["AdminUsername"];
+            }
+
+            return adminUser;
+        }
+
+        private string GetValidPassword()
+        {
+            var adminUser = Environment.GetEnvironmentVariable("AdminPassword");
+
+            if (string.IsNullOrEmpty(adminUser))
+            {
+                adminUser = ConfigurationManager.AppSettings["AdminPassword"];
+            }
+
+            return adminUser;
         }
     }
 }

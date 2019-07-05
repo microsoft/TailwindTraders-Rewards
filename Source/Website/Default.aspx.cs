@@ -16,6 +16,8 @@ namespace Tailwind.Traders.Rewards.Web
             // Don't forget to create the 'rewards' database and execute the sql ..\SQLScripts\CreateTablesAndPopulate.sql script
             // to make the initial migration and seeding
 
+
+
             string yolo = Request.QueryString["yolo"];
             if (yolo == "hi")
             {

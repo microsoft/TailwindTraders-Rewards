@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  sql.data:
+    image: ${DOCKER_REGISTRY-}tailwindtradersrewardsdatabase
+    build:
+      context: .\SQLDocker
+      dockerfile: Dockerfile
+  
+
+  tailwindtraders.rewards.website:
+    image: ${DOCKER_REGISTRY-}tailwindtradersrewardswebsite
+    build:
+      context: .\Website
+      dockerfile: Dockerfile
+      args:
+        sdkImageTag: 3.5-windowsservercore-ltsc2019
+    depends_on:
+          - sql.data
