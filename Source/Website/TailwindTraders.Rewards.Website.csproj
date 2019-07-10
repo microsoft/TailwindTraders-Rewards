@@ -183,9 +183,6 @@
     <Content Include="Admin.Master" />
     <None Include="Properties\PublishProfiles\ttrewards-dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\ttrewardsdevapp - Web Deploy.pubxml" />
-    <Content Include="transform.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
