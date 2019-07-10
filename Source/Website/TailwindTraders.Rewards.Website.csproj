@@ -24,6 +24,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -98,8 +99,11 @@
     <Content Include="Content\fonts\BrandonGrotesque-Light.woff2" />
     <Content Include="Content\fonts\BrandonGrotesque-Medium.woff" />
     <Content Include="Content\fonts\BrandonGrotesque-Medium.woff2" />
-    <None Include="Properties\PublishProfiles\tt-rewardsdev - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\tt-rewardsdev - Web Deploy.pubxml" />
+    <None Include="Dockerfile" />
+    <None Include=".dockerignore">
+      <DependentUpon>Dockerfile</DependentUpon>
+    </None>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
     <Content Include="Login.aspx" />
@@ -173,6 +177,8 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Admin.Master" />
+    <None Include="Properties\PublishProfiles\ttrewards-dev - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\ttrewardsdevapp - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -183,6 +189,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

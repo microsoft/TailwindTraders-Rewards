@@ -7,13 +7,25 @@ namespace Tailwind.Traders.Rewards.Web.Data
 {
     public class DataAccessHandler
     {
+        private static string GetConnectionString()
+        {
+            var connectionString = Environment.GetEnvironmentVariable("ConnectionString");
+
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbContext"].ConnectionString;
+            }
+
+            return connectionString;
+        }
+
         public static DataTable ExecuteSelect(string query, SqlParameter[] parameters = null)
         {
             DataTable table = new DataTable();
 
             try
             {
-                var connectionString = ConfigurationManager.ConnectionStrings["dbContext"].ConnectionString;
+                var connectionString = GetConnectionString();
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 using (SqlCommand command = new SqlCommand(query, con))
@@ -46,7 +58,7 @@ namespace Tailwind.Traders.Rewards.Web.Data
         {
             try
             {
-                var connectionString = ConfigurationManager.ConnectionStrings["dbContext"].ConnectionString;
+                var connectionString = GetConnectionString();
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 using (SqlCommand command = new SqlCommand(query, con))
