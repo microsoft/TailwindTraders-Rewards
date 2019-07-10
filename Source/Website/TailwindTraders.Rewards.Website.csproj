@@ -104,10 +104,6 @@
       <DependentUpon>Dockerfile</DependentUpon>
     </None>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\TailwindTradersRewardsWebsite20190621084120 - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\TailwindTradersRewardsWebsite20190625100001 - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\tt-rewardsdev - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\tt-rewardsdev - Web Deploy.pubxml" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
     <Content Include="Login.aspx" />
