@@ -99,10 +99,6 @@
     <Content Include="Content\fonts\BrandonGrotesque-Light.woff2" />
     <Content Include="Content\fonts\BrandonGrotesque-Medium.woff" />
     <Content Include="Content\fonts\BrandonGrotesque-Medium.woff2" />
-    <None Include="Dockerfile" />
-    <None Include=".dockerignore">
-      <DependentUpon>Dockerfile</DependentUpon>
-    </None>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
