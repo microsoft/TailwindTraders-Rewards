@@ -1,0 +1,15 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "sqldb_connection": "<Same Connection String used in the Rewards Website>",
+    "EnrollmentAFUrl": "https://<YOUR_AZURE_FUNCTION_URL>.azurewebsites.net/api/EnrollmentResponseNotification",
+    // If you want to use SendGrid fill the following configuration
+    "SendGridApiKey": "",
+    "SendGrid_From": "",
+    // If you want to use Twilio fill the following configuration
+    "TwilioAccountSid": "",
+    "TwilioAuthToken": "",
+    "TwilioPhoneNumber": "",
+    "UseSMSReply": "false" //By default we disable this option since it requires additional configuration in the Twilio account.
+  }
+}

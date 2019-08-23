@@ -99,7 +99,6 @@
     <Content Include="Content\fonts\BrandonGrotesque-Light.woff2" />
     <Content Include="Content\fonts\BrandonGrotesque-Medium.woff" />
     <Content Include="Content\fonts\BrandonGrotesque-Medium.woff2" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
     <Content Include="Login.aspx" />
@@ -169,6 +168,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Connected Services\Application Insights\ConnectedService.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
