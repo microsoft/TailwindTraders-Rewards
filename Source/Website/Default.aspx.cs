@@ -59,12 +59,26 @@ namespace Tailwind.Traders.Rewards.Web
             {
                 customer.Enrrolled = EnrollmentStatusEnum.Started;
                 CustomerData.ChangeEnrollmentStatus(customer);
-                BypassLogicAppIfNeeded(customer);
+                if (!SkipEnrollmentVerification(customer))
+                {
+                    BypassLogicAppIfNeeded(customer);
+                }
                 MapCustomer(customer);
             }
         }
 
-    private void BypassLogicAppIfNeeded(Customer customer)
+        private bool SkipEnrollmentVerification(Customer customer)
+        {
+            if (bool.TryParse(ConfigurationManager.AppSettings["SkipEnrollmentVerification"], out bool isEnabled)
+                && isEnabled)
+            {
+                customer.Enrrolled = EnrollmentStatusEnum.Accepted;
+                CustomerData.ChangeEnrollmentStatus(customer);
+            }
+            return isEnabled;
+        }
+
+        private void BypassLogicAppIfNeeded(Customer customer)
         {
             var bypassSettings = ConfigurationManager.AppSettings["ByPassLogicApp"];
             if (string.IsNullOrEmpty(bypassSettings) || !bool.Parse(bypassSettings))
