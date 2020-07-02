@@ -39,7 +39,7 @@
             </div>
 
               <div class="checkbox-wrapper">
-                <asp:CheckBox ID="EnrollCheckbox" runat="server" AutoPostBack="true" OnCheckedChanged="EnrollChckedChanged" />
+                <asp:CheckBox ID="EnrollCheckbox" runat="server" AutoPostBack="true" OnCheckedChanged="EnrollCheckedChanged" />
                 <label runat="server" id="lblCheckbox" for="EnrollCheckbox"></label>
             </div>
 

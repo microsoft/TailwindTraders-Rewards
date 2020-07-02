@@ -49,7 +49,7 @@ namespace Tailwind.Traders.Rewards.Web
             lblCheckbox.Attributes.Add("for", EnrollCheckbox.ClientID);
         }
 
-        protected void EnrollChckedChanged(object sender, EventArgs e)
+        protected void EnrollCheckedChanged(object sender, EventArgs e)
         {
             var cid = int.Parse(CustomerId.Value);
 
