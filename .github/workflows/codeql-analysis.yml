@@ -9,6 +9,9 @@ on:
   schedule:
     - cron: '0 8 * * 6'
 
+env:
+  NUGET_VERSION: '5.3.1' 
+  
 jobs:
   analyse:
     name: Analyse
@@ -32,6 +35,11 @@ jobs:
       uses: github/codeql-action/init@v1      
       with:
         languages: csharp
+
+    - name: Install Nuget
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: ${{ env.NUGET_VERSION}}
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
