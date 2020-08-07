@@ -1,0 +1,103 @@
+name: Build and deploy TailwindTraders Rewards ASP.NET MVC App to Azure
+on:
+  push:
+    branches: [main, ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [main]
+  schedule:
+    - cron: '0 0 * * *'
+
+env:
+  AZURE_WEBAPP_NAME: ttrewardswebdemo    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: './Source'      # set this to the path to your web app project, defaults to the repository root
+  NUGET_VERSION: '5.3.1'           # set this to the dot net version to use
+
+jobs:
+  pr-build:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: windows-latest
+    steps:
+      # checkout the repo
+    - uses: actions/checkout@v2
+      with:
+        # sets the commit to be checked out as the latest commit from the pull request that was initiated
+        ref: ${{ github.event.pull_request.head.ref }}
+        fetch-depth: 0
+
+    - name: Install Nuget
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: ${{ env.NUGET_VERSION}}
+
+    - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
+      run: nuget restore '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
+  
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.0
+    
+    - name: Run MSBuild
+      run: msbuild '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
+
+  nightly-build:
+    if: ${{ github.event_name == 'schedule' }}
+    runs-on: windows-latest
+    steps:
+      # checkout the repo
+    - uses: actions/checkout@v2
+      with:
+        # sets the commit to be checked out as the latest commit from the pull request that was initiated
+        ref: ${{ github.event.pull_request.head.ref }}
+        fetch-depth: 0
+
+    - name: Install Nuget
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: ${{ env.NUGET_VERSION}}
+
+    - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
+      run: nuget restore '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
+  
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.0
+    
+    - name: Run MSBuild
+      run: msbuild '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
+
+  build-and-deploy:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: windows-latest
+    steps:
+    # checkout the repo
+    - uses: actions/checkout@v2  
+    
+    - name: Install Nuget
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: ${{ env.NUGET_VERSION}}
+    - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
+      run: nuget restore '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
+  
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.0
+    
+    - name: Run MSBuild
+      run: msbuild '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
+    
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: 'Run Azure webapp deploy action'
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
+        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/Website/'
+  
+    - uses: azure/appservice-settings@v1
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        connection-strings-json: '${{ secrets.CONNECTION_STRINGS }}'
+        general-settings-json: '{"alwaysOn": "false", "webSocketsEnabled": "true", "netFrameworkVersion": "v4.0"}' #'General configuration settings as Key Value pairs'
+      id: settings
