@@ -41,15 +41,18 @@ jobs:
       uses: nuget/setup-nuget@v1
       with:
         nuget-version: ${{ env.NUGET_VERSION}}
+        
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v1
 
-    - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
-      run: nuget restore '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
+    # - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
+    #   run: nuget restore '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
   
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.1
+    # - name: Add msbuild to PATH
+    #   uses: microsoft/setup-msbuild@v1.0.1
     
-    - name: Run MSBuild
-      run: msbuild '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
+    # - name: Run MSBuild
+    #   run: msbuild '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
 
     #- run: |
     #   make bootstrap
