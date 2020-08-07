@@ -49,6 +49,18 @@ Optionally, we have added an ARM template to automate the creation of the resour
 
 > Note: This will create all the resources that you need, including: Azure Function, Azure Logic App, Storage, Azure App Service, App Service Plan, Azure SQL Database and Azure SQL Server.
 
+An alternative option is to execute the following script in order deploy to Azure using *az cli* tools:
+
+```
+.\Deploy\gen-infrastructure.ps1 -resourceGroup <resource-group-name> -location <location-name> -subscription <subscription-id> -sqlAdminName <sql-admin-name> -sqlAdminPassword <sql-admin-password>
+```
+
+- `resourceGroup`: The name of your resource group where all infrastructure will be created `Required`
+- `location`: Select where you want to create your resource group, for example: `eastus` `Required`
+- `sqlAdminName`: Name of your SQL admin user `Required`
+- `sqlAdminPassword`: Password of your SQL admin user `Required`
+- `subscription`: Id of your subscription where you are going to deploy your resource group `Required`
+
 ### 3. Publish the website project
 
 Using the Azure resources and the profile you just created, publish the application with Visual Studio. 
