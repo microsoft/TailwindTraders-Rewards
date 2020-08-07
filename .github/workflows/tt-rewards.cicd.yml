@@ -1,4 +1,4 @@
-name: Build and deploy TailwindTraders Rewards ASP.NET MVC App to Azure
+name: CICD TailwindTraders Rewards
 on:
   push:
     branches: [main, ]
@@ -45,10 +45,9 @@ jobs:
     steps:
       # checkout the repo
     - uses: actions/checkout@v2
-      with:
-        # sets the commit to be checked out as the latest commit from the pull request that was initiated
-        ref: ${{ github.event.pull_request.head.ref }}
-        fetch-depth: 0
+      with:        
+        ref: main
+    - run: git checkout HEAD^
 
     - name: Install Nuget
       uses: nuget/setup-nuget@v1
@@ -69,8 +68,11 @@ jobs:
     runs-on: windows-latest
     steps:
     # checkout the repo
-    - uses: actions/checkout@v2  
-    
+    - uses: actions/checkout@v2
+      with:        
+        ref: main
+    - run: git checkout HEAD^
+
     - name: Install Nuget
       uses: nuget/setup-nuget@v1
       with:
