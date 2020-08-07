@@ -11,11 +11,12 @@ on:
 
 env:
   NUGET_VERSION: '5.3.1' 
-  
+  AZURE_WEBAPP_PACKAGE_PATH: './Source'
+
 jobs:
   analyse:
     name: Analyse
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout repository
@@ -40,18 +41,18 @@ jobs:
       uses: nuget/setup-nuget@v1
       with:
         nuget-version: ${{ env.NUGET_VERSION}}
-
-    # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
-    # If this step fails, then you should remove it and run the build manually (see below)
+        
     - name: Autobuild
       uses: github/codeql-action/autobuild@v1
 
-    # ℹ️ Command-line programs to run using the OS shell.
-    # 📚 https://git.io/JvXDl
-
-    # ✏️ If the Autobuild fails above, remove it and uncomment the following three lines
-    #    and modify them (or add more) to build your code if your project
-    #    uses a compiled language
+    # - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
+    #   run: nuget restore '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
+  
+    # - name: Add msbuild to PATH
+    #   uses: microsoft/setup-msbuild@v1.0.1
+    
+    # - name: Run MSBuild
+    #   run: msbuild '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
 
     #- run: |
     #   make bootstrap
