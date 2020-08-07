@@ -47,7 +47,6 @@ jobs:
     - uses: actions/checkout@v2
       with:        
         ref: main
-    - run: git checkout HEAD^
 
     - name: Install Nuget
       uses: nuget/setup-nuget@v1
@@ -71,7 +70,6 @@ jobs:
     - uses: actions/checkout@v2
       with:        
         ref: main
-    - run: git checkout HEAD^
 
     - name: Install Nuget
       uses: nuget/setup-nuget@v1
