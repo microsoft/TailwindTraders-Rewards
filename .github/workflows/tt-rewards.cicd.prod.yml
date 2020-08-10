@@ -1,4 +1,4 @@
-name: CICD TailwindTraders Rewards
+name: TailwindTraders Rewards Pipelines
 on:
   push:
     branches: [main, ]
@@ -9,9 +9,13 @@ on:
     - cron: '0 0 * * *'
 
 env:
+  #AZURE_RESOURCE_GROUP_NAME: Rewards
+  AZURE_RESOURCE_GROUP_NAME: tt-rewards-testing
+  AZURE_RESOURCE_GROUP_LOCATION: westus2
   AZURE_WEBAPP_NAME: ttrewardswebdemo    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: './Source'      # set this to the path to your web app project, defaults to the repository root
   NUGET_VERSION: '5.3.1'           # set this to the dot net version to use
+  AZURE_DATABASE_CONNECTION_STRING: 'Server=tcp:{0}.database.windows.net,1433;Initial Catalog=rewardsdb;Persist Security Info=False;User ID={1};Password={2};MultipleActiveResultSets=False;Encrypt=true;TrustServerCertificate=False;Connection Timeout=30;'
 
 jobs:
   pr-build:
@@ -39,7 +43,7 @@ jobs:
     - name: Run MSBuild
       run: msbuild '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
 
-  nightly-build:
+  nightly-build-and-deploy:
     if: ${{ github.event_name == 'schedule' }}
     runs-on: windows-latest
     steps:
@@ -62,7 +66,7 @@ jobs:
     - name: Run MSBuild
       run: msbuild '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
 
-  build-and-deploy:
+  main-build-and-deploy:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: windows-latest
     steps:
@@ -88,7 +92,17 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
+
+    - name: Deploy ARM
+      run: |
+        az group create -n ${{ env.AZURE_RESOURCE_GROUP_NAME }} -l ${{ env.AZURE_RESOURCE_GROUP_LOCATION }} 
+        az group deployment create -n ghaction -g ${{ env.AZURE_RESOURCE_GROUP_NAME }} --template-file Deploy/deployment.json --parameters sqlServerAdministratorUser=${{ secrets.sqlServerAdministratorUser }} sqlServerAdministratorPassword=${{ secrets.sqlServerAdministratorPassword }}
+        $result = az group deployment show --name ghaction --resource-group ${{ env.AZURE_RESOURCE_GROUP_NAME }} --query '[properties.outputs.web.value, properties.outputs.sqlserver.value]' -o tsv
+        $web_name = $result[0]
+        $sql_server_name = $result[1]
+        Write-Output "::set-env name=SQL_SERVER_NAME::$sql_server_name"
+        Write-Output "::set-env name=AZURE_WEBAPP_NAME::$web_name"
+
     - name: 'Run Azure webapp deploy action'
       uses: azure/webapps-deploy@v2
       with: 
@@ -98,6 +112,6 @@ jobs:
     - uses: azure/appservice-settings@v1
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        connection-strings-json: '${{ secrets.CONNECTION_STRINGS }}'
+        connection-strings-json: '${{ format(env.AZURE_DATABASE_CONNECTION_STRING, env.SQL_SERVER_NAME, secrets.sqlServerAdministratorUser, secrets.sqlServerAdministratorPassword ) }}'
         general-settings-json: '{"alwaysOn": "false", "webSocketsEnabled": "true", "netFrameworkVersion": "v4.0"}' #'General configuration settings as Key Value pairs'
       id: settings
