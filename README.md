@@ -13,7 +13,8 @@ You can take a look at our live running website following this address: [https:/
 1. You can either run the Azure Durable Function or create a Logic App workflow in order to automate the enrollment process. Depending on what you want to showcase or learn you can use either, the Azure Function use a [Twilio](https://www.twilio.com) account to send SMS or [SendGrid](https://docs.microsoft.com/en-us/azure/sendgrid-dotnet-how-to-send-email) to send an email, this workflow waits for an approval, while the Logic App just send a welcome email to the customer.
 
 We use GitHub Actions in order to manage the CI/CD process of this application:
-![GitHub Pipelines](https://github.com/sonahander/TailwindTraders-Rewards/workflows/CICD%20TailwindTraders%20Rewards/badge.svg?branch=main)
+
+![GitHub Pipelines](https://github.com/microsoft/TailwindTraders-Rewards/workflows/CICD%20TailwindTraders%20Rewards/badge.svg?branch=main)
 
 > Note: In the **web.config** file of the website project, in line 43 and 44 you can setup the credentials required to get into the Administration dashboard to add, modify or delete the sample data of the customers.
 
