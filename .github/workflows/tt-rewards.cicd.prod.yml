@@ -16,7 +16,8 @@ env:
   AZURE_WEBAPP_PACKAGE_PATH: './Source'      # set this to the path to your web app project, defaults to the repository root
   NUGET_VERSION: '5.3.1'           # set this to the dot net version to use
   AZURE_DATABASE_CONNECTION_STRING: 'Server=tcp:{0}.database.windows.net,1433;Initial Catalog=rewardsdb;Persist Security Info=False;User ID={1};Password={2};MultipleActiveResultSets=False;Encrypt=true;TrustServerCertificate=False;Connection Timeout=30;'
-
+  SQL_SCRIPT_PATH: Source/SQLScripts/CreateTablesAndPopulate.sql
+  
 jobs:
   pr-build:
     if: ${{ github.event_name == 'pull_request' }}
@@ -102,6 +103,13 @@ jobs:
         $sql_server_name = $result[1]
         Write-Output "::set-env name=SQL_SERVER_NAME::$sql_server_name"
         Write-Output "::set-env name=AZURE_WEBAPP_NAME::$web_name"
+
+    - name: Migrate and seed database
+      uses: Azure/sql-action@v1
+      with:
+        server-name: ${{ format('{0}.database.windows.net', env.SQL_SERVER_NAME) }}
+        connection-string: ${{ format(env.AZURE_DATABASE_CONNECTION_STRING, env.SQL_SERVER_NAME, secrets.SQL_ADMIN_USER, secrets.SQL_ADMIN_PWD ) }}
+        sql-file: ${{ env.SQL_SCRIPT_PATH }}
 
     - name: 'Run Azure webapp deploy action'
       uses: azure/webapps-deploy@v2
