@@ -96,7 +96,7 @@ jobs:
     - name: Deploy ARM
       run: |
         az group create -n ${{ env.AZURE_RESOURCE_GROUP_NAME }} -l ${{ env.AZURE_RESOURCE_GROUP_LOCATION }} 
-        az group deployment create -n ghaction -g ${{ env.AZURE_RESOURCE_GROUP_NAME }} --template-file Deploy/deployment.json --parameters sqlServerAdministratorUser=${{ secrets.SQL_ADMIN_USER }} sqlServerAdministratorPassword=${{ secrets.SQL_ADMIN_PWD }}
+        az deployment group create -n ghaction -g ${{ env.AZURE_RESOURCE_GROUP_NAME }} --template-file Deploy/deployment.json --parameters sqlServerAdministratorUser=${{ secrets.SQL_ADMIN_USER }} sqlServerAdministratorPassword=${{ secrets.SQL_ADMIN_PWD }}
         $result = az group deployment show --name ghaction --resource-group ${{ env.AZURE_RESOURCE_GROUP_NAME }} --query '[properties.outputs.web.value, properties.outputs.sqlserver.value]' -o tsv
         $web_name = $result[0]
         $sql_server_name = $result[1]
@@ -112,6 +112,13 @@ jobs:
     - uses: azure/appservice-settings@v1
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        connection-strings-json: '${{ format(env.AZURE_DATABASE_CONNECTION_STRING, env.SQL_SERVER_NAME, secrets.SQL_ADMIN_USER, secrets.SQL_ADMIN_PWD ) }}'
+        connection-strings-json: |
+          [{
+            "name": "dbContext",
+            "value": "${{ format(env.AZURE_DATABASE_CONNECTION_STRING, env.SQL_SERVER_NAME, secrets.SQL_ADMIN_USER, secrets.SQL_ADMIN_PWD ) }}",
+            "type": "SQLServer",
+            "slotSetting": false
+          }]
+        
         general-settings-json: '{"alwaysOn": "false", "webSocketsEnabled": "true", "netFrameworkVersion": "v4.0"}' #'General configuration settings as Key Value pairs'
       id: settings
