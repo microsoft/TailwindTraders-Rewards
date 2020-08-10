@@ -14,7 +14,7 @@ You can take a look at our live running website following this address: [https:/
 
 We use GitHub Actions in order to manage the CI/CD process of this application:
 
-![GitHub Pipelines](https://github.com/microsoft/TailwindTraders-Rewards/workflows/CICD%20TailwindTraders%20Rewards/badge.svg?branch=main)
+![GitHub Pipelines](https://github.com/microsoft/TailwindTraders-Rewards/workflows/TailwindTraders%20Rewards%20Pipelines/badge.svg?branch=main)
 
 > Note: In the **web.config** file of the website project, in line 43 and 44 you can setup the credentials required to get into the Administration dashboard to add, modify or delete the sample data of the customers.
 

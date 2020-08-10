@@ -44,7 +44,7 @@ jobs:
       run: msbuild '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
 
   
-  merge-build:
+  main-build:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: windows-latest
     steps:
