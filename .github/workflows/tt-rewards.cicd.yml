@@ -45,7 +45,7 @@ jobs:
 
   
   main-build:
-    if: ${{ github.ref == 'refs/heads/main' }}
+    if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event.pull_request.merged == true) }}
     runs-on: windows-latest
     steps:
     # checkout the repo
