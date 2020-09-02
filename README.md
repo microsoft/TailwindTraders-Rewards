@@ -12,8 +12,9 @@ You can take a look at our live running website following this address: [https:/
 1. The application is connected to a SQL Server Database.
 1. You can either run the Azure Durable Function or create a Logic App workflow in order to automate the enrollment process. Depending on what you want to showcase or learn you can use either, the Azure Function use a [Twilio](https://www.twilio.com) account to send SMS or [SendGrid](https://docs.microsoft.com/en-us/azure/sendgrid-dotnet-how-to-send-email) to send an email, this workflow waits for an approval, while the Logic App just send a welcome email to the customer.
 
-We use Azure Pipelines in order to manage the CI/CD process of this application, you can take a look at the project:
-[![Build status](https://dev.azure.com/TailwindTraders/Rewards/_apis/build/status/Rewards-CI)](https://dev.azure.com/TailwindTraders/Rewards/_build/latest?definitionId=28)
+We use GitHub Actions in order to manage the CI/CD process of this application:
+
+![GitHub Pipelines](https://github.com/microsoft/TailwindTraders-Rewards/workflows/TailwindTraders%20Rewards%20Pipelines/badge.svg?branch=main)
 
 > Note: In the **web.config** file of the website project, in line 43 and 44 you can setup the credentials required to get into the Administration dashboard to add, modify or delete the sample data of the customers.
 
@@ -48,6 +49,18 @@ Optionally, we have added an ARM template to automate the creation of the resour
 [![Deploy to Azure](Documents/Images/deploy-to-azure.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2FTailwindTraders-Rewards%2Fmain%2FDeploy%2Fdeployment.json)
 
 > Note: This will create all the resources that you need, including: Azure Function, Azure Logic App, Storage, Azure App Service, App Service Plan, Azure SQL Database and Azure SQL Server.
+
+An alternative option is to execute the following script in order deploy to Azure using *az cli* tools:
+
+```
+.\Deploy\gen-infrastructure.ps1 -resourceGroup <resource-group-name> -location <location-name> -subscription <subscription-id> -sqlAdminName <sql-admin-name> -sqlAdminPassword <sql-admin-password>
+```
+
+- `resourceGroup`: The name of your resource group where all infrastructure will be created `Required`
+- `location`: Select where you want to create your resource group, for example: `eastus` `Required`
+- `sqlAdminName`: Name of your SQL admin user `Required`
+- `sqlAdminPassword`: Password of your SQL admin user `Required`
+- `subscription`: Id of your subscription where you are going to deploy your resource group `Required`
 
 ### 3. Publish the website project
 
