@@ -45,7 +45,7 @@ From the window screen called **Pick a publish target** select **App Service** a
 
 Optionally, we have added an ARM template to automate the creation of the resources required for this app, you can also deploy the resources using the following button:
 
-[![Deploy to Azure](Documents/Images/deploy-to-azure.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2FTailwindTraders-Rewards%2Fmaster%2FDeploy%2Fdeployment.json)
+[![Deploy to Azure](Documents/Images/deploy-to-azure.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2FTailwindTraders-Rewards%2Fmain%2FDeploy%2Fdeployment.json)
 
 > Note: This will create all the resources that you need, including: Azure Function, Azure Logic App, Storage, Azure App Service, App Service Plan, Azure SQL Database and Azure SQL Server.
 
