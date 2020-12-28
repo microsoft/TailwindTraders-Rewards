@@ -38,7 +38,7 @@ jobs:
       run: nuget restore '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
   
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.0
+      uses: microsoft/setup-msbuild@v1.0.2
     
     - name: Run MSBuild
       run: msbuild '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
@@ -57,11 +57,12 @@ jobs:
       uses: nuget/setup-nuget@v1
       with:
         nuget-version: ${{ env.NUGET_VERSION}}
+        
     - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
       run: nuget restore '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
   
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.0
+      uses: microsoft/setup-msbuild@v1.0.2
     
     - name: Run MSBuild
       run: msbuild '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
@@ -85,7 +86,7 @@ jobs:
       run: nuget restore '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
   
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.0
+      uses: microsoft/setup-msbuild@v1.0.2
     
     - name: Run MSBuild
       run: msbuild '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/TailwindTraders.Rewards.Website.sln'
@@ -102,8 +103,8 @@ jobs:
         $result = az group deployment show --name ghaction --resource-group ${{ env.AZURE_RESOURCE_GROUP_NAME }} --query '[properties.outputs.web.value, properties.outputs.sqlserver.value]' -o tsv
         $web_name = $result[0]
         $sql_server_name = $result[1]
-        Write-Output "::set-env name=SQL_SERVER_NAME::$sql_server_name"
-        Write-Output "::set-env name=AZURE_WEBAPP_NAME::$web_name"
+        echo "SQL_SERVER_NAME=$sql_server_name" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "AZURE_WEBAPP_NAME=$web_name" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
     - name: Migrate and seed database
       uses: Azure/sql-action@v1
