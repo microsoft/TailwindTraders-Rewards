@@ -1,7 +1,7 @@
 name: TailwindTraders Rewards Pipelines
 on:
   push:
-    branches: [main, ]
+    branches: [main, fix/cicd-deploy-sql]
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [main]
@@ -69,7 +69,7 @@ jobs:
         
 
   nightly-build-and-deploy:
-    if: ${{ github.event_name == 'schedule' }}
+    #if: ${{ github.event_name == 'schedule' }}
     runs-on: windows-latest
     steps:
       # checkout the repo
@@ -99,7 +99,7 @@ jobs:
     - name: Deploy ARM
       run: |
         az group create -n ${{ env.AZURE_RESOURCE_GROUP_NAME }} -l ${{ env.AZURE_RESOURCE_GROUP_LOCATION }} 
-        az deployment group create -n ghaction -g ${{ env.AZURE_RESOURCE_GROUP_NAME }} --template-file Deploy/deployment.json --parameters sqlServerAdministratorUser=${{ secrets.SQL_ADMIN_USER }} sqlServerAdministratorPassword=${{ secrets.SQL_ADMIN_PWD }}
+        az deployment group create -n ghaction -g ${{ env.AZURE_RESOURCE_GROUP_NAME }} --template-file Deploy/deployment.json --parameters sqlServerAdministratorUser=sqladmin sqlServerAdministratorPassword=${{ secrets.SQL_ADMIN_PWD }}
         $result = az group deployment show --name ghaction --resource-group ${{ env.AZURE_RESOURCE_GROUP_NAME }} --query '[properties.outputs.web.value, properties.outputs.sqlserver.value]' -o tsv
         $web_name = $result[0]
         $sql_server_name = $result[1]
@@ -110,7 +110,7 @@ jobs:
       uses: Azure/sql-action@v1
       with:
         server-name: ${{ format('{0}.database.windows.net', env.SQL_SERVER_NAME) }}
-        connection-string: ${{ format(env.AZURE_DATABASE_CONNECTION_STRING, env.SQL_SERVER_NAME, secrets.SQL_ADMIN_USER, secrets.SQL_ADMIN_PWD ) }}
+        connection-string: ${{ format(env.AZURE_DATABASE_CONNECTION_STRING, env.SQL_SERVER_NAME, 'sqladmin', secrets.SQL_ADMIN_PWD ) }}
         sql-file: ${{ env.SQL_SCRIPT_PATH }}
 
     - name: 'Run Azure webapp deploy action'
@@ -125,7 +125,7 @@ jobs:
         connection-strings-json: |
           [{
             "name": "dbContext",
-            "value": "${{ format(env.AZURE_DATABASE_CONNECTION_STRING, env.SQL_SERVER_NAME, secrets.SQL_ADMIN_USER, secrets.SQL_ADMIN_PWD ) }}",
+            "value": "${{ format(env.AZURE_DATABASE_CONNECTION_STRING, env.SQL_SERVER_NAME, 'sqladmin', secrets.SQL_ADMIN_PWD ) }}",
             "type": "SQLServer",
             "slotSetting": false
           }]
