@@ -4,8 +4,6 @@ The customer service at [Tailwind Traders](https://github.com/Microsoft/Tailwind
 
 ![Tailwind Traders Rewards](Documents/Images/Rewards.png)
 
-You can take a look at our live running website following this address: [https://rewards.tailwindtraders.com](https://rewards.tailwindtraders.com) 
-
 ## Technical Information
 
 1. The application was built with .NET Framework 3.5 using ASP.NET Web Forms.
